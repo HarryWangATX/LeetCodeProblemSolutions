@@ -5,26 +5,12 @@ class Solution {
         String string = str;
         long number = 0;
         boolean hasNegative = false;
-        
-        
-
-    
-        /*
-        for(i=0; i<str.length(); i++){
-            if(str.charAt(i)==' '){
-                continue;
-            }
-            else{
-                break;
-            }
-        }
-        i--;
-        */
+      
         string = string.trim();
         if(string.length()<=0){
             return 0;
         }
-        System.out.println(string);
+        
         
         if(string.charAt(0)=='+'){
             i++;
@@ -36,17 +22,16 @@ class Solution {
         }
         
         
-        System.out.println(i);
         for(i=i; i<string.length(); i++){
             if(string.charAt(i) >= '0' && string.charAt(i)<='9'){
                 numbers += string.substring(i,i+1);
-                System.out.println(numbers);
+                
             }
             else{
                 break;
             }
         }
-        System.out.println(numbers);
+        
         
         
         StringBuilder nstr = new StringBuilder(numbers);
