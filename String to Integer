@@ -1,0 +1,89 @@
+class Solution {
+    public int myAtoi(String str) {
+        int i=0;
+        String numbers = "";
+        String string = str;
+        long number = 0;
+        boolean hasNegative = false;
+        
+        
+
+    
+        /*
+        for(i=0; i<str.length(); i++){
+            if(str.charAt(i)==' '){
+                continue;
+            }
+            else{
+                break;
+            }
+        }
+        i--;
+        */
+        string = string.trim();
+        if(string.length()<=0){
+            return 0;
+        }
+        System.out.println(string);
+        
+        if(string.charAt(0)=='+'){
+            i++;
+            hasNegative = false;
+        }
+        else if(string.charAt(0)=='-'){
+            i++;
+            hasNegative = true;
+        }
+        
+        
+        System.out.println(i);
+        for(i=i; i<string.length(); i++){
+            if(string.charAt(i) >= '0' && string.charAt(i)<='9'){
+                numbers += string.substring(i,i+1);
+                System.out.println(numbers);
+            }
+            else{
+                break;
+            }
+        }
+        System.out.println(numbers);
+        
+        
+        StringBuilder nstr = new StringBuilder(numbers);
+        
+        for(int k = 0; k<nstr.length();k++){
+            if(nstr.charAt(k)=='0'){
+                nstr.setCharAt(k, ' ');
+            }
+            else{
+                break;
+            }
+        }
+        String s = new String(nstr);
+        s = s.trim();
+        if(s.length()<=0){
+            return 0;
+        }
+        if(s.length()>10){
+            s = s.substring(0,11);
+        }
+        
+        number = Long.parseLong(s);
+        
+        if(hasNegative == true){
+            if(!(number>=-2147483648 && number<= 2147483647)){
+                return -2147483648;
+            }
+            number *= -1;
+        }
+        else{
+            if(!(number>=-2147483648 && number<= 2147483647)){
+                return 2147483647;
+            }
+        }
+        
+        
+        return (int)number;
+
+    }
+}
