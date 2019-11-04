@@ -1,8 +1,9 @@
 # LeetCode-Problem-Sets
 Answers for the leetcode problems
 
-Solutions MAY vary with offical LeetCode Solutions
-PLEASE do a pull request for more elegant solutions
+Solutions MAY vary with offical LeetCode Solutions.
+
+PLEASE do a pull request for more elegant solutions.
 
 Tips for beginners:
 1. If you are spending too much time on a problem, look and interpret the solutions
