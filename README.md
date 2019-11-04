@@ -11,4 +11,4 @@ Tips for beginners:
 2. Familiarize yourself with for loops, while loops, and if/else statements
 3. Make sure you know arrays
 4. For string input problems, make sure to familiarize with the String methods(Ex: indexOf, substring. etc)
-5. Good Luck
+5. Good Luck!!
