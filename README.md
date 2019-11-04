@@ -5,6 +5,7 @@ Solutions MAY vary with offical LeetCode Solutions.
 
 PLEASE do a pull request for more elegant solutions.
 
+
 Tips for beginners:
 1. If you are spending too much time on a problem, look and interpret the solutions
 2. Familiarize yourself with for loops, while loops, and if/else statements
