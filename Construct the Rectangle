@@ -1,0 +1,34 @@
+import java.lang.Math;
+
+class Solution {
+    public int[] constructRectangle(int area) {
+        int[] array = new int[2];
+        
+        int width = 0;
+        int difference = 0;
+        int min = area;
+        
+        for(int i = 1; i<=Math.sqrt(area); i++){
+            width = area/i;
+            
+            if(width * i == area){
+                 difference = Math.abs(i-width);
+                if(difference<min){
+                   
+                    min = difference;
+                    
+                    if(i>width){
+                        array[0]=i;
+                        array[1]=width;
+                    }
+                    else{
+                        array[0]=width;
+                        array[1]=i;
+                    }
+                }
+                
+            }
+        }
+        return array;
+    }
+}
