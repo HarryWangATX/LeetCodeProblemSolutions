@@ -1,0 +1,23 @@
+class Solution {
+    public int addDigits(int num) {
+        int a = 0;
+        int count = 10;
+        
+        if(num<=0){
+            return num;
+        }
+        
+        while(count > 1){
+            a = 0;
+            count = 0;
+            while(num > 0){
+                count ++;
+                a+=num % 10;
+                num /= 10;
+            }
+            num = a;
+        }
+        
+        return a;
+    }
+}
