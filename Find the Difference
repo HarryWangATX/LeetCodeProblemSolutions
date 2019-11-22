@@ -1,0 +1,43 @@
+import java.util.Arrays;
+
+class Solution {
+    public char findTheDifference(String s, String t) {
+        
+        char[] word1 = new char[s.length()];
+        char[] word2 = new char[t.length()];
+        char result = 'a';
+    
+        
+        for(int i = 0; i<s.length(); i++){
+            word1[i] = s.charAt(i);
+        }
+        
+        for(int a = 0; a<t.length(); a++){
+            word2[a] = t.charAt(a);
+        }
+        
+   
+        Arrays.sort(word1);
+        Arrays.sort(word2);
+        
+        if(word1.length > word2.length){
+            for(int z = 0; z<word2.length; z++){
+                if(word1[z] != word2[z]){
+                    result = word2[z];
+                    return result;
+                }
+            }
+        }
+        else{
+            for(int g = 0; g<word1.length; g++){
+                if(word1[g] != word2[g]){
+                    result = word2[g];
+                    return result;
+                }
+            }
+        }
+        
+        result = word2[word2.length-1];
+        return result;
+    }
+}
