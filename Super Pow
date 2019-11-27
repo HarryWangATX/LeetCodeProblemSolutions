@@ -1,0 +1,17 @@
+import java.math.*;
+
+class Solution {
+    public int superPow(int a, int[] b) {
+        
+        String array = "";
+        for(int i = 0; i<b.length;i++){
+            array+=b[i];
+        }
+        BigInteger n = new BigInteger(""+a);
+        BigInteger n1 = new BigInteger(array);
+        BigInteger n2 = new BigInteger("1337");
+        BigInteger result = n.modPow(n1,n2);
+
+        return Integer.parseInt(""+result);
+    }
+}
