@@ -1,0 +1,19 @@
+class Solution {
+    public boolean checkPerfectNumber(int num) {
+        int sum = 0;
+        if(num <=1){
+            return false;
+        }
+        for(int i = 1; i<=Math.sqrt(num); i++){
+            if(num%i==0){
+                sum+=i + (num/i);
+            }
+        }
+        
+        if(sum-num==num){
+            return true;
+        }
+        
+        return false;
+    }
+}
