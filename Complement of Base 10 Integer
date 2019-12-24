@@ -1,0 +1,25 @@
+class Solution {
+    public int bitwiseComplement(int N) {
+        String firstBinary = "" + baseConversion(""+N, 10, 2); 
+        String secondBinary = "";
+        for(int i = 0; i<firstBinary.length(); i++){
+            if(firstBinary.substring(i,i+1).equals("1")){
+                secondBinary += "0";
+            }
+            else{
+                secondBinary += "1";
+            }
+        }
+        return Integer.parseInt(baseConversion(secondBinary, 2, 10));
+    }
+    
+    public static String baseConversion(String number, 
+                                 int sBase, int dBase) 
+    { 
+        // Parse the number with source radix  
+        // and return in specified radix(base) 
+        return Integer.toString( 
+            Integer.parseInt(number, sBase), 
+            dBase); 
+    } 
+}
