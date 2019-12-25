@@ -1,0 +1,15 @@
+import java.util.Arrays;
+
+class Solution {
+    public List<Integer> sortArray(int[] nums) {
+        Arrays.sort(nums);
+        
+        List<Integer> intList = new ArrayList<Integer>(nums.length);
+        
+        for(int i = 0; i<nums.length; i++){
+            intList.add(nums[i]);
+        }
+        
+        return intList;
+    }
+}
