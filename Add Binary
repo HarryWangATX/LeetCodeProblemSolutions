@@ -1,0 +1,120 @@
+class Solution {
+    public String addBinary(String a, String b) {
+        String sum = "";
+        String realSum = "";
+        String min = "";
+        int forward = 0;
+        String max = "";
+        int result = 0;
+        int first;
+        int second;
+        if(a.length()>b.length()){
+
+            for(int i = 0; i<a.length(); i++){
+                if(a.charAt(i)!='0'){
+                    max = a.substring(i);
+                    break;
+                }
+            }
+            
+            for(int i = 0; i<b.length(); i++){
+                if(b.charAt(i)!='0'){
+                    min = b.substring(i);
+                    break;
+                }
+            }
+            
+            if(min == ""){
+                min = "0";
+            }
+            if(max == ""){
+                max = "0";
+            }
+
+            
+        }
+        else{
+
+            
+            for(int i = 0; i<b.length(); i++){
+                if(b.charAt(i)!='0'){
+                    max = b.substring(i);
+                    break;
+                }
+            }
+            
+            for(int i = 0; i<a.length(); i++){
+                if(a.charAt(i)!='0'){
+                    min = a.substring(i);
+                    break;
+                }
+            }
+            
+            if(min == ""){
+                min = "0";
+            }
+            if(max == ""){
+                max = "0";
+            }
+
+        }
+        
+        
+        for(int i = 0; i<min.length(); i++){
+
+            first = min.charAt(min.length()-1-i) - '0';
+            second = max.charAt(max.length()-1-i) - '0';
+            result = first + second + forward;
+
+            if(result < 2){
+                sum += "" + result;
+                forward = 0;
+            }
+            else{
+                sum += "" + (result-2);
+                forward = 1;
+            }
+            
+        }
+        
+        if(a.length()==b.length()){
+            if(forward == 1){
+                sum += "1";
+            }
+            for(int i = sum.length() - 1; i >= 0; i--){
+                realSum += sum.charAt(i);
+            }
+            
+            return realSum;
+        }
+        
+        for(int z = max.length()-min.length()-1; z>=0; z--){
+            
+            result = (max.charAt(z)-'0') + forward;
+            
+            if(result < 2){
+                sum += "" + result;
+                forward = 0;
+            }
+            else{
+                sum += "" + (result - 2);
+                forward = 1;
+            }
+        }
+        
+        
+
+        if(forward == 1){
+            sum += "1";
+        }
+        
+        
+        
+        for(int i = sum.length() - 1; i >= 0; i--){
+            realSum += sum.charAt(i);
+        }
+        
+        return realSum;
+    }
+    
+}
