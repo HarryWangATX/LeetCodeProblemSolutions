@@ -12,7 +12,8 @@ class Solution {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         String n1 = "";
         String n2 = "";
-        String reversedResult = "";
+
+
         
         while(l1 != null){
             n1 += "" + l1.val;
@@ -23,12 +24,12 @@ class Solution {
             l2 = l2.next;
         }
         
-        BigInteger sum = new BigInteger(reverse(n1));
-        sum = sum.add(new BigInteger(reverse(n2)));
         
-        reversedResult = reverse(sum + "");
+        
+        String sum = addNumber(reverse(n1), reverse(n2));
+      
         ListNode a = null;
-        return stringToNode(reversedResult, a);
+        return stringToNode(sum, a);
         
         
         
@@ -59,17 +60,88 @@ class Solution {
     // to Linked List. 
     public static ListNode stringToNode(String text,  ListNode head) 
     { 
-        head = add(text.charAt(0)-'0'); 
+        head = add(text.charAt(0)-48); 
         ListNode curr = head; 
 
         // curr pointer points to the current node 
         // where the insertion should take place 
         for (int i = 1; i < text.length(); i++)  
         { 
-            curr.next = add(text.charAt(i) - '0'); 
+            curr.next = add(text.charAt(i) - 48); 
             curr = curr.next; 
         } 
         return head; 
     } 
+    
+    public static String addNumber (String a, String b){
+        String sum = "";
+        String min = "";
+        int forward = 0;
+        String max = "";
+        int result = 0;
+        int first;
+        int second;
+        if(a.length()>b.length()){
+            max = a;
+            min = b;
+            
+        }
+        else{
+            max = b;
+            min = a;
+            
+            
+        }
+        
+        
+        for(int i = 0; i<min.length(); i++){
+
+            first = min.charAt(min.length()-1-i) - '0';
+            second = max.charAt(max.length()-1-i) - '0';
+            result = first + second + forward;
+
+            if(result < 10){
+                sum += "" + result;
+                forward = 0;
+            }
+            else{
+                sum += "" + (result-10);
+                forward = 1;
+            }
+            
+        }
+        
+        if(a.length()==b.length()){
+            if(forward == 1){
+                sum += "1";
+            }
+     
+            return sum;
+        }
+        
+        for(int z = max.length()-min.length()-1; z>=0; z--){
+            
+            result = (max.charAt(z)-'0') + forward;
+            
+            if(result < 10){
+                sum += "" + result;
+                forward = 0;
+            }
+            else{
+                sum += "" + (result - 10);
+                forward = 1;
+            }
+        }
+        
+        
+
+        if(forward == 1){
+            sum += "1";
+        }
+        
+        
+
+        return sum;
+    }
   
 }
