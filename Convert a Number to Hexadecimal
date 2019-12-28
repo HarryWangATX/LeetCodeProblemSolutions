@@ -1,0 +1,21 @@
+class Solution {
+    public String toHex(int num) {
+        if (num ==0) return "0";
+        StringBuilder res = new StringBuilder();
+        if (num <0) {
+            char[] bit = Integer.toBinaryString(num).toCharArray();
+            for (int i=0; i < bit.length;i+=4) {
+                int carry =(bit[i]-'0')*8 + (bit[i+1]-'0')*4 + (bit[i+2]-'0')*2 + (bit[i+3]-'0');
+                res.append(carry >9? (char)('a' + (carry-10)): (char)(carry+'0'));
+            }
+        }
+        else {
+            while (num >0) {
+                int carry = num % 16;
+                res.append(carry >9? (char)('a' + (carry-10)): (char)(carry+'0'));
+                num = num/16;
+            }
+        }
+        return num>=0? res.reverse().toString(): res.toString();
+    }
+}
