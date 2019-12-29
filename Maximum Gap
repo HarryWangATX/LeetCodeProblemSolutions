@@ -1,0 +1,28 @@
+import java.util.Arrays;
+
+class Solution {
+    public int maximumGap(int[] nums) {
+        int maxDifference = 0;
+        
+        if(nums.length<2){
+            return 0;
+        }
+        else if(nums.length == 2){
+            if(nums[0]>nums[1]){
+                return nums[0]-nums[1];
+            }
+            else{
+                return nums[1] - nums[0];
+            }
+        }
+        Arrays.sort(nums);
+        maxDifference = nums[0]-nums[1];
+        for(int i = 1; i<nums.length-1; i++){
+            if(nums[i+1]-nums[i]>maxDifference){
+                maxDifference = nums[i+1]-nums[i];
+            }
+        }
+        
+        return maxDifference;
+    }
+}
