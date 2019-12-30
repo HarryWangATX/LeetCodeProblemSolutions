@@ -1,90 +1,45 @@
 import java.util.Arrays;
 class Solution {
     public int[] plusOne(int[] digits) {
+
+        return addNumber(digits);
         
-        String a = "";
-        for(int i = 0; i<digits.length; i++){
-            a += "" + digits[i];
-        }
-        a = addNumber(a, "1");
-        int[] b = new int[a.length()];
-        int j = 0;
-        for(int i = a.length()-1; i>=0; i--, j++){
-            b[j] = a.charAt(i)-'0';
-        }
-        return b;
+    
     }
     
     
     
-    public static String addNumber (String a, String b){
-        String sum = "";
-        String min = "";
+    
+    public static int[] addNumber(int[] a){
         int forward = 0;
-        String max = "";
-        int result = 0;
-        int first;
-        int second;
-        if(a.length()>b.length()){
-            max = a;
-            min = b;
-            
+        int result = a[a.length-1] + 1;
+        
+        if(result < 10){
+            a[a.length-1] = result;
         }
         else{
-            max = b;
-            min = a;
-            
-            
+            a[a.length-1] = result % 10;
+            forward = 1;
         }
         
-        
-        for(int i = 0; i<min.length(); i++){
-
-            first = min.charAt(min.length()-1-i) - '0';
-            second = max.charAt(max.length()-1-i) - '0';
-            result = first + second + forward;
-
+        for(int i = a.length - 2; i>=0; i--){
+            result = a[i] + forward;
             if(result < 10){
-                sum += "" + result;
+                a[i] = result;
                 forward = 0;
             }
             else{
-                sum += "" + (result-10);
-                forward = 1;
-            }
-            
-        }
-        
-        if(a.length()==b.length()){
-            if(forward == 1){
-                sum += "1";
-            }
-     
-            return sum;
-        }
-        
-        for(int z = max.length()-min.length()-1; z>=0; z--){
-            
-            result = (max.charAt(z)-'0') + forward;
-            
-            if(result < 10){
-                sum += "" + result;
-                forward = 0;
-            }
-            else{
-                sum += "" + (result - 10);
+                a[i] = result % 10;
                 forward = 1;
             }
         }
         
-        
-
         if(forward == 1){
-            sum += "1";
+            int[] b = Arrays.copyOfRange(a, 0, a.length + 1);
+            b[0] = 1;
+            return b;
         }
         
-        
-
-        return sum;
+        return a;
     }
 }
