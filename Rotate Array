@@ -1,0 +1,33 @@
+class Solution {
+    public void rotate(int[] nums, int k) {
+        String a = "";
+        String b = "";
+        String result = "";
+        if(k>nums.length){
+            while(k>nums.length){
+                k-=nums.length;
+            }
+        }
+        
+        for(int i = 0; i<nums.length; i++){
+            a += nums[i] + " ";
+        }
+
+
+        String[] c = new String[nums.length];
+        c = a.split(" ");
+        a = "";
+        for(int i = 0; i<nums.length-k; i++){
+            b += c[i] + " ";
+        }
+        for(int i = nums.length-k; i<nums.length; i++){
+            a += c[i] + " ";
+        }
+
+        result = a + b;
+        c = result.split(" ");
+        for(int i = 0; i<nums.length; i++){
+            nums[i] = Integer.parseInt(c[i]);
+        }
+    }
+}
