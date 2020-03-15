@@ -1,0 +1,13 @@
+class Solution {
+    public int maximumProduct(int[] nums) {
+        Arrays.sort(nums); 
+        int product=0;
+
+        for(int i=0;i<nums.length-2;i++){ 
+            for(int j=i+1;j<nums.length-1;j++){
+                if (nums[i]*nums[j]>=product)product=nums[i]*nums[j];
+            }
+        }
+        return (product*nums[nums.length-1]); 
+    }
+}
