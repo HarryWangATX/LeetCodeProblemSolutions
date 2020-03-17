@@ -1,0 +1,55 @@
+class Solution {
+    public String sortString(String s) {
+        int count = 0;
+        int num = s.length();
+        String[] in = s.split("");
+        Arrays.sort(in);
+        ArrayList<String> a = new ArrayList<String>();
+        ArrayList<Integer> b = new ArrayList<>();
+        
+        a.add("A");
+        for(int i = 0; i<in.length; i++){
+            a.add(in[i]);
+        }
+        a.add("A");
+        String out = "";
+        while(count<num){
+            for(int i = 1; i<a.size()-1; i++){
+                if(!a.get(i).equals(a.get(i+1))){
+                    out+=a.get(i);
+                    b.add(i);
+                    count++;
+                }
+            }
+
+            if(count>=num){
+                break;
+            }
+            
+            
+            for(int i = 0; i<b.size(); i++){
+                int c = b.get(i)-i;
+                a.remove(c);
+            }
+            b.clear();
+            for(int i = a.size()-2; i>=1; i--){
+                if(!a.get(i).equals(a.get(i-1))){
+                    out+=a.get(i);
+                    b.add(i);
+                    count++;
+                }
+            }
+            
+            System.out.println(b);
+            for(int i = 0; i<b.size(); i++){
+                int c = b.get(i);
+                
+                a.remove(c);
+            }
+            
+            b.clear();
+        }
+        
+        return out;
+    }
+}
