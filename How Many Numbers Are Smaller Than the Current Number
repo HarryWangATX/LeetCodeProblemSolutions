@@ -1,0 +1,19 @@
+class Solution {
+    public int[] smallerNumbersThanCurrent(int[] nums) {
+        int[] out = new int[nums.length];
+        int count = 0;
+        int realCount = 0;
+        while(count<nums.length){
+            int number = nums[count];
+            for(int i = 0; i<nums.length; i++){
+                if(nums[i]<number){
+                    realCount++;
+                }
+            }
+            out[count] = realCount;
+            realCount=0;
+            count++;
+        }
+        return out;
+    }
+}
