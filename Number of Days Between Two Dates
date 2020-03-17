@@ -1,0 +1,49 @@
+class Solution {
+    public static final int[] numOfDaysInMonth = new int[]{31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    public int daysBetweenDates(String date1, String date2) {
+        
+        int[] dateNum1 = toInt(date1);
+        int[] dateNum2 = toInt(date2);
+        
+        
+        int count1 = countDays(dateNum1);
+        int count2 = countDays(dateNum2);
+        
+        return Math.abs(count1 - count2);
+    }
+    
+    private int countDays(int[] dateNum) {
+		
+        int year = 1971;
+        int count = 0;
+       
+        while (year < dateNum[0]) {
+            count += isLeapYear(year) ? 366 : 365;
+            year++;
+        }
+        
+        
+        for (int i = 0; i < dateNum[1] - 1; i++) {
+            count += numOfDaysInMonth[i];
+        }
+        count += isLeapYear(dateNum[0]) && dateNum[1] > 2 ? 1 : 0;
+        
+        
+        count += dateNum[2];
+        return count;
+    }
+    
+    private int[] toInt(String date) {
+        String[] dates = date.split("-");
+        return new int[]{
+            Integer.valueOf(dates[0]),
+            Integer.valueOf(dates[1]),
+            Integer.valueOf(dates[2])
+        };
+    }
+    
+    private boolean isLeapYear(int year) {
+        return ((year % 4 == 0) && (year % 100 != 0))
+            || (year % 400 == 0);
+    }
+}
