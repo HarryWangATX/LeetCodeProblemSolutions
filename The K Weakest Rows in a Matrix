@@ -1,0 +1,23 @@
+class Solution {
+    public int[] kWeakestRows(int[][] mat, int k) {
+        ArrayList<int[]> rowSum = new ArrayList<>();
+        for(int i = 0; i<mat.length; i++){
+            int sum = 0;
+            for(int j = 0; j<mat[i].length; j++){
+                sum+=mat[i][j];
+            }
+            rowSum.add(new int[]{sum,i});
+        }
+        Collections.sort(rowSum, new Comparator<int[]>(){
+            public int compare(int[] first, int[] second){
+                return first[0]-second[0];
+            }
+        });
+        int[] result = new int[k];
+        for(int i = 0; i<k; i++){
+            result[i] = rowSum.get(i)[1];
+        }
+        
+        return result;
+    }
+}
