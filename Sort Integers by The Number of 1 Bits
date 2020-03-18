@@ -1,0 +1,61 @@
+class Solution {
+    public int[] sortByBits(int[] arr) {
+        ArrayList<int[]> list = new ArrayList<>();
+        int[] result = new int[arr.length];
+        int count = 0;
+        for(int i = 0; i<arr.length; i++){
+            list.add(new int[]{lengthDec(arr[i]),arr[i]});
+        }
+        Collections.sort(list, new Comparator<int[]>() {
+            public int compare(int[] firstNumber, int[] secondNumber) {
+                return firstNumber[0] - secondNumber[0];
+            }
+        });
+       
+        list.add(new int[]{800,319240823});
+        
+        int count1 = 0;
+        ArrayList<Integer> list2 = new ArrayList<>();
+        ArrayList<Integer> list3 = new ArrayList<>();
+        for(int i = 0; i<list.size()-1; i++){
+            //result[i] = list.get(i)[1];
+            list2.add(list.get(i)[1]);
+            if(result[i] != arr[i]){
+                count++;
+            }
+            if(list.get(i)[0] != list.get(i+1)[0]){
+                Collections.sort(list2);
+                for(int j = 0; j<list2.size(); j++){
+                    list3.add(list2.get(j));
+                }
+                list2.clear();
+            }
+            
+
+            
+        }
+
+        for(int i = 0; i<list3.size(); i++){
+            result[i] = list3.get(i);
+        }
+        if(count==0){
+            Arrays.sort(arr);
+            return arr;
+        }
+        return result;
+        
+    }
+    
+    public static int lengthDec(int n) 
+    { 
+        int count = 0;
+        while (n > 0)  
+        { 
+            if(n%2==1){
+                count++;
+            }
+            n = n / 2; 
+        } 
+        return count;
+    } 
+}
