@@ -1,0 +1,29 @@
+class Solution {
+    public int numTimesAllBlue(int[] light) {
+        int[] bulbs = new int[light.length];
+        
+        
+        int count = 0;
+        for(int i = 0; i<light.length; i++){
+            bulbs[light[i]-1] = 9;
+            //System.out.println(Arrays.toString(bulbs));
+            if(check(bulbs, i)){
+                count++;
+            }
+        }
+        
+        
+        return count;
+    }
+    
+    public static boolean check(int[] a, int b){
+        //boolean c = true;
+        for(int i = 0; i<=b; i++){
+            if(a[i] != 9){
+                return false;
+            }
+        }
+    
+        return true;
+    }
+}
