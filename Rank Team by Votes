@@ -1,0 +1,51 @@
+class Solution {
+    public String rankTeams(String[] votes) {
+        if (votes == null || votes.length == 0 || votes[0].length() == 0)
+        {
+            return "";
+        }
+        if (votes.length == 1 || votes[0].length() == 1)
+        {
+            return votes[0];
+        }
+        int[][] teams = new int[26][votes[0].length()+1];
+        for(int i = 0; i<teams.length; i++){
+            teams[i][votes[0].length()] = i;
+        }
+        String out = "";
+        for(int i = 0; i<votes.length; i++){
+            for(int j = 0; j<votes[i].length(); j++){
+                teams[votes[i].charAt(j)-'A'][j] += 1;
+            }
+        }
+        
+        
+        
+        Arrays.sort(teams, new Comparator<int []> ()
+        		{
+        			@Override
+        			public int compare(int [] first, int [] second)
+        			{
+	        			for (int i = 0; i < votes[0].length(); i++)
+	        			{
+	        				if (first[i] > second[i])
+	        				{
+	        					return -1;
+	        				}
+	        				else if (first[i] < second[i])
+	        				{
+	        					return 1;
+	        				}
+	        			}
+	        			return first[first.length - 1] - second[second.length - 1];
+        			}
+        		});
+        for(int i = 0; i<votes[0].length(); i++){
+            out+=(char)(teams[i][votes[0].length()] + 'A');
+        }
+        
+        return out;
+    }
+
+ 
+}
