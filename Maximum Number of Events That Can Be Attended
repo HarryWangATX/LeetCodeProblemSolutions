@@ -1,0 +1,20 @@
+class Solution {
+    public int maxEvents(int[][] events) {
+        
+        int total = 0;
+                
+        Arrays.sort(events, (a,b) -> Integer.compare(a[1],b[1]));
+            
+        Set<Integer> available = new HashSet<>();
+        
+        for(int[] evt : events){
+            for(int i=evt[0]; i<=evt[1]; i++){                
+                if(available.add(i)){
+                    total+=1;
+                    break;
+                }
+            }
+        }        
+        return total;
+    }
+}
