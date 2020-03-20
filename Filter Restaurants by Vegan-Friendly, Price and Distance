@@ -1,0 +1,37 @@
+class Solution {
+    public List<Integer> filterRestaurants(int[][] restaurants, int veganFriendly, int maxPrice, int maxDistance) {
+        List<Integer> out = new ArrayList<>();
+        List<int[]> list = new ArrayList<>();
+        for(int i = 0; i<restaurants.length; i++){
+            if(veganFriendly == 1){
+                if(restaurants[i][2] == veganFriendly && restaurants[i][3] <= maxPrice && restaurants[i][4] <= maxDistance){
+                    list.add(new int[]{restaurants[i][0], restaurants[i][1]});
+                }
+            }
+            else{
+                if(restaurants[i][3] <= maxPrice && restaurants[i][4] <= maxDistance){
+                    list.add(new int[]{restaurants[i][0], restaurants[i][1]});
+                }
+            }
+            
+        }
+        
+        Collections.sort(list, new Comparator<int[]>(){
+            public int compare(int[] first, int[] second){
+                for (int i = 1; i >= 0; i--)
+	        	{
+                    if(first[i] > second[i] || first[i] < second[i])
+	        		    return first[i] - second[i];
+	        	}
+                return first[0]-second[0];
+            }
+        });
+        Collections.reverse(list);
+        
+        for(int i = 0; i<list.size(); i++){
+            out.add(list.get(i)[0]);
+        }
+        
+        return out;
+    }
+}
