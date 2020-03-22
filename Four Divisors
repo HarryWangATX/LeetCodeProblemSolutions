@@ -1,0 +1,36 @@
+class Solution {
+    public int sumFourDivisors(int[] nums) {
+        int count = 1;
+        int sum = 0;
+
+        for(int i = 0; i<nums.length; i++){
+            count=0;
+            int temp = 0;
+            for(int j = 1; j<=Math.sqrt(nums[i]); j++){
+                
+                if(nums[i]%j==0){
+                    if (nums[i]/j == j){
+                        sum+=j;
+                        temp+=j;
+                        count++;
+                    }
+                    else {
+                        sum+=j + (nums[i]/j);
+                        temp+=j + (nums[i]/j);
+                        count+=2;
+                    }
+                    //System.out.println(count);
+                }
+            }
+            
+            //System.out.println();
+            if(count!=4){
+                sum-=temp;
+            }
+            
+        }
+        
+        
+        return sum;
+    }
+}
