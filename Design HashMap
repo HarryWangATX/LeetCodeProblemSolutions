@@ -1,0 +1,54 @@
+class MyHashMap {
+
+    /** Initialize your data structure here. */
+    List<List<Integer>> hashMap;
+    public MyHashMap() {
+        hashMap = new ArrayList<>();
+    }
+    
+    /** value will always be non-negative. */
+    public void put(int key, int value) {
+        List<Integer> temp = new ArrayList<>();
+        temp.add(key);
+        temp.add(value);
+        boolean a = true;
+        for(int i = 0; i<hashMap.size(); i++){
+            if(hashMap.get(i).get(0).equals(temp.get(0))){
+                hashMap.set(i, temp);
+                a = false;
+                break;
+            }
+        }
+        if(a){
+            hashMap.add(temp);
+        }
+        
+    }
+    
+    /** Returns the value to which the specified key is mapped, or -1 if this map contains no mapping for the key */
+    public int get(int key) {
+        for(int i = 0; i<hashMap.size(); i++){
+            if(hashMap.get(i).get(0).equals(key)){
+                return hashMap.get(i).get(1);
+            }
+        }
+        return -1;
+    }
+    
+    /** Removes the mapping of the specified value key if this map contains a mapping for the key */
+    public void remove(int key) {
+        for(int i = 0; i<hashMap.size(); i++){
+            if(hashMap.get(i).get(0).equals(key)){
+                hashMap.remove(i);
+            }
+        }
+    }
+}
+
+/**
+ * Your MyHashMap object will be instantiated and called as such:
+ * MyHashMap obj = new MyHashMap();
+ * obj.put(key,value);
+ * int param_2 = obj.get(key);
+ * obj.remove(key);
+ */
