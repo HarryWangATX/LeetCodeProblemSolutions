@@ -1,0 +1,52 @@
+class UndergroundSystem {
+    
+    private Map<String, Map<Integer, Integer>> checkIn;
+    private Map<String, Map<Integer, Integer>> checkOut;
+    
+    public UndergroundSystem() {
+        checkIn = new HashMap<>();
+        checkOut = new HashMap<>();
+    }
+    
+    public void checkIn(int id, String stationName, int t) {
+        if( !checkIn.containsKey( stationName)) {
+            checkIn.put(stationName, new HashMap<Integer, Integer>());
+        }
+        Map<Integer, Integer> map = checkIn.get(stationName);
+        map.put(id, t);
+        
+    }
+    
+    public void checkOut(int id, String stationName, int t) {
+        if( !checkOut.containsKey( stationName)) {
+            checkOut.put(stationName, new HashMap<Integer, Integer>());
+        }
+        Map<Integer, Integer> map = checkOut.get(stationName);
+        map.put(id, t);
+    }
+    
+    public double getAverageTime(String startStation, String endStation) {
+        double result =0.0;
+        Map<Integer, Integer> map1 = checkIn.get(startStation);
+        Map<Integer, Integer> map2 = checkOut.get(endStation);
+        int count =0;
+        for(Map.Entry<Integer, Integer> entry : map1.entrySet()) {
+            int startTime = entry.getValue();
+            int id = entry.getKey();
+            if( map2.containsKey(id)) {
+                int endTime = map2.get(id);
+                result += endTime - startTime;
+                count++;
+            }
+        }
+        return result/count;
+    }
+}
+
+/**
+ * Your UndergroundSystem object will be instantiated and called as such:
+ * UndergroundSystem obj = new UndergroundSystem();
+ * obj.checkIn(id,stationName,t);
+ * obj.checkOut(id,stationName,t);
+ * double param_3 = obj.getAverageTime(startStation,endStation);
+ */
