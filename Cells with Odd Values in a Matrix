@@ -1,0 +1,33 @@
+class Solution {
+    public int oddCells(int n, int m, int[][] indices) {
+        int[][] matrix = new int[n][m];
+        int count = 0;
+        for(int i = 0; i<indices.length; i++){
+            matrix = updateRow(indices[i][0], matrix);
+            matrix = updateCol(indices[i][1], matrix);
+        }
+        
+        for(int[] row : matrix){
+            for(int col : row){
+                if(col%2!=0){
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+    public static int[][] updateRow(int row, int[][] indices){
+        for(int i = 0; i<indices[row].length; i++){
+            indices[row][i]++;
+        }
+        
+        return indices;
+    }
+    
+    public static int[][] updateCol(int col, int[][] indices){
+        for(int i = 0; i<indices.length; i++){
+            indices[i][col]++;
+        }
+        return indices;
+    }
+}
