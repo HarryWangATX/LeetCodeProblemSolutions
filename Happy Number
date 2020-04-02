@@ -1,0 +1,29 @@
+class Solution {
+    public boolean isHappy(int n) {
+        if(n==1){
+            return true;
+        }
+        int sum = n;
+        boolean a = true;
+        HashSet<Integer> map = new HashSet<>();
+        while(sum != 1){
+            n = sum;
+            
+            //System.out.println(map);
+            if(map.contains(sum)){
+                System.out.println(sum);
+                a = false;
+                break;
+            }
+            map.add(sum);
+            sum = 0;
+            while(n != 0){
+                sum += Math.pow(n%10, 2);
+                n/=10;
+            }
+            //System.out.println(sum);
+        
+        }
+        return (a==true) ? true : false;
+    }
+}
