@@ -1,0 +1,26 @@
+class Solution {
+	    public boolean checkOverlap(int radius, int x_center, int y_center, int x1, int y1, int x2, int y2) {
+	        if(x1 <= x_center && x_center <= x2){
+	        	if(y1 <= y_center && y_center <= y2){
+	        		return true;
+	        	}
+	        }
+	        
+	        int[][] co = {
+	        		{x1, y1}, {x2, y2}, {x1, y2}, {x2, y1}
+	        };
+	        for(int[] c : co){
+	        	if((c[0]-x_center)*(c[0]-x_center) + (c[1]-y_center)*(c[1]-y_center) <= radius*radius){
+	        		return true;
+	        	}
+	        }	
+	        
+	        if(x_center >= x1-radius && x_center <= x2+radius && y1 <= y_center && y_center <= y2){
+	        	return true;
+	        }
+	        if(y_center >= y1-radius && y_center <= y2+radius && x1 <= x_center && x_center <= x2){
+	        	return true;
+	        }
+	        return false;
+	    }
+	}	
