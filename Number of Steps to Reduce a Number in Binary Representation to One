@@ -1,0 +1,40 @@
+import java.math.BigDecimal; 
+class Solution {
+    
+    public int numSteps(String s) {
+        if(s.equals("1")){
+            return 0;
+        }
+        BigDecimal sum = new BigDecimal("0");
+        BigDecimal mod1 = new BigDecimal("2");
+        BigDecimal com = new BigDecimal("0");
+        BigDecimal c = new BigDecimal("1");
+        sum = con(s);
+        int count = 0;
+        while(sum.compareTo(c) != 0){
+            if(sum.remainder(mod1).compareTo(com) != 0){
+                sum = sum.add(c);
+            }
+            else{
+                sum = sum.divide(mod1);
+            }
+            count++;
+        }
+        return count;
+    }
+    
+    public static BigDecimal con (String bitStr){
+        BigDecimal sum = new BigDecimal("0");
+        BigDecimal base = new BigDecimal(2);
+        BigDecimal temp;
+        for(int i=0;i<bitStr.length();i++){
+            if(bitStr.charAt(i)== '1'){
+                int exponent= bitStr.length()-1-i;
+                temp=base.pow(exponent);
+                sum=sum.add(temp);
+            }
+
+        }
+        return sum;
+    }
+}
