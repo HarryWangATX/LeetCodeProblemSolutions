@@ -17,4 +17,4 @@ Tips for beginners:
 6. Good Luck!!
 
 
-I try to post at least one problem set each week. Sorry if it gets delayed... :)
+
