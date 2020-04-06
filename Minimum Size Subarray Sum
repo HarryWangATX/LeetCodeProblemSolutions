@@ -1,0 +1,22 @@
+class Solution {
+    public int minSubArrayLen(int s, int[] nums) {
+        int[] runningSums = new int[nums.length+1];
+        for(int i = 0; i<nums.length; i++){
+            runningSums[i+1] = runningSums[i] + nums[i];
+        }
+        //System.out.println(Arrays.toString(runningSums));
+        int min = Integer.MAX_VALUE;
+        for(int i = 0; i < runningSums.length; i++){
+            for(int j = runningSums.length-1; j > i; j--){
+                if(runningSums[j] - runningSums[i] >= s){
+                    //System.out.println(runningSums[j] - runningSums[i]);
+                    min = Math.min(j-i, min);
+                }
+            }
+        }
+        if(min == Integer.MAX_VALUE){
+            return 0;
+        }
+        return min;
+    }
+}
