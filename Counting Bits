@@ -1,0 +1,27 @@
+class Solution {
+    public int[] countBits(int num) {
+        int[] res = new int[num+1];
+        int nums = 0;
+        int count;
+        for(int i = 1; i<=num; i++){
+            nums = i;
+            count = 0;
+            for(int j = 0; j<31; j++){
+                if(j==0){
+                    if((nums & 1) == 1){
+                        count++;
+                    }
+                }
+                else{
+                    nums = nums >> 1;
+                    if((nums & 1) == 1){
+                        count++;
+                    }
+                }
+                
+            }
+            res[i] = count;
+        }   
+        return res;
+    }
+}
