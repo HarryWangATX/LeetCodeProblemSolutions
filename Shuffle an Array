@@ -1,0 +1,37 @@
+import java.util.*;
+class Solution {
+    int[] arr;
+    int[] ori;
+    List<Integer> shf;
+    public Solution(int[] nums) {
+        arr = nums;
+		shf = Arrays.stream(arr).boxed().collect(Collectors.toList());
+        ori = nums.clone();
+    }
+    
+    /** Resets the array to its original configuration and return it. */
+    public int[] reset() {
+        arr = ori.clone();
+        shf = Arrays.stream(arr).boxed().collect(Collectors.toList());
+        return arr;
+    }
+    
+    /** Returns a random shuffling of the array. */
+    public int[] shuffle() {
+        Random rand = new Random();
+        int size = shf.size();
+        for(int i = 0; i<size; i++){
+            int ran = rand.nextInt(shf.size());
+            arr[i] = shf.get(ran);
+            shf.remove(ran);
+        }
+        return arr;
+    }
+}
+
+/** 
+ * Your Solution object will be instantiated and called as such:
+ * Solution obj = new Solution(nums);
+ * int[] param_1 = obj.reset();
+ * int[] param_2 = obj.shuffle();
+ */
