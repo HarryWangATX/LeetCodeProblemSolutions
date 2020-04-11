@@ -1,0 +1,42 @@
+class Solution {
+    private int R, C;
+    private Random random;
+    private HashSet<Integer> used;  
+    
+    public Solution(int n_rows, int n_cols) {
+        this.R = n_rows;
+        this.C = n_cols;
+        this.random = new Random();
+        this.used = new HashSet<Integer>();
+    }
+    
+    private int hashCode(int x, int y){
+        // Szudzik's Pairing Function
+        if(x >= y)
+            return x*x + x + y;
+        else
+            return x + y*y;
+    }
+    
+    public int[] flip() {
+        while(true){
+            int x = this.random.nextInt(R);
+            int y = this.random.nextInt(C);
+            int code = hashCode(x, y);
+            if(used.add(code)){
+                return new int[] { x, y };
+            }
+        }        
+    }
+    
+    public void reset() {
+        this.used.clear();
+    }
+}
+
+/**
+ * Your Solution object will be instantiated and called as such:
+ * Solution obj = new Solution(n_rows, n_cols);
+ * int[] param_1 = obj.flip();
+ * obj.reset();
+ */
