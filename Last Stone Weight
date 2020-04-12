@@ -1,0 +1,44 @@
+class Solution {
+    public int lastStoneWeight(int[] stones) {
+        int count = stones.length;
+        int max = 0;
+        int ma = 0;
+        int max1 = 0;
+        int max2 = 0;
+        while(count > 1){
+            for(int i = 0; i<stones.length; i++){
+                 if(stones[i] > max){
+                     ma = max;
+                     max = stones[i];
+                     max1 = max2;
+                     max2 = i;
+                 }
+                 else if(stones[i] > ma){
+                    ma = stones[i];
+                    max1 = i;
+                 }
+            }
+            if(max == ma){
+                count-=2;
+                stones[max1] = 0;
+                stones[max2] = 0;
+            }
+            else{
+                //System.out.println(max1 + " " + max2);
+                stones[max1] = 0;
+                stones[max2] = max-ma;
+                count--;
+            }
+            max = 0;
+            ma = 0;
+            max1 = 0;
+            max2 = 0;
+        }
+        for(int i = 0; i<stones.length; i++){
+            if(stones[i]!=0){
+                return stones[i];
+            }
+        }
+        return 0;
+    }
+}
