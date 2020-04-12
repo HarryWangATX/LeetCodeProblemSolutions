@@ -1,0 +1,35 @@
+class Solution {
+    public int[] processQueries(int[] queries, int m) {
+        int[] process = new int[m];
+        int[] newA = new int[m];
+        int[] res = new int[queries.length];
+        for(int i = 1; i<=m; i++){
+            process[i-1] = i;
+        }
+        
+        for(int i = 0; i<queries.length; i++){
+            //System.out.println(Arrays.toString(process));
+            int quer = 0;
+            for(int z = 0; z<process.length; z++){
+                if(process[z] == queries[i]){
+                    quer = z;
+                    break;
+                }
+            }
+            res[i] = quer;
+            newA[0] = queries[i];
+            int count = 0;
+            for(int j = 1; j<process.length; ){
+                if(count != quer){
+                    newA[j] = process[count];
+                    //System.out.println(Arrays.toString(newA));
+                    j++;
+                }
+                count++;
+            }
+            process = newA.clone();
+        }
+        return res;
+    }
+    
+}
