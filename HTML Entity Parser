@@ -1,0 +1,95 @@
+class Solution {
+    public String entityParser(String text) {
+        if(text.equals("")){
+            return text;
+        }
+        String res = "";
+        boolean a = false;
+        boolean b = true;
+        String temp = "";
+        String temp2 = "";
+        int count = 0;
+        for(int i = 0; i<text.length(); i++){
+            //System.out.println(res);
+            if(text.charAt(i) == '&'){
+                a = true;
+                b = true;
+            }
+            if(a){
+                temp += text.charAt(i)+"";
+                temp2 += text.charAt(i) + "";
+                if(temp.length() < 4){
+                    
+                }
+                else if(temp.equals("&quot;")){
+                    res += "\"";
+                    a = false;
+                    b = false;
+                    count = 0;
+                    temp2 = "";
+                    temp = "";
+                }
+                else if(temp.equals("&apos;")){
+                    res += "\'";
+                    a = false;
+                    b = false;
+                    count = 0;
+                    temp2 = "";
+                    temp = "";
+                }
+                else if(temp.equals("&amp;")){
+                    res += "&";
+                    a = false;
+                    b = false;
+                    count = 0;
+                    temp2 = "";
+                    temp = "";
+                }
+                else if(temp.equals("&gt;")){
+                    res += ">";
+                    a = false;
+                    b = false;
+                    count = 0;
+                    temp2 = "";
+                    temp = "";
+                }
+                else if(temp.equals("&lt;")){
+                    res += "<";
+                    a = false;
+                    b = false;
+                    count = 0;
+                    temp2 = "";
+                    temp = "";
+                }
+                else if(temp.equals("&frasl;")){
+                    res += "/";
+                    a = false;
+                    b = false;
+                    count = 0;
+                    temp2 = "";
+                    temp = "";
+                }
+                
+                
+                
+                count++;
+                if(count > 7){
+                    a = false;
+                    res += temp2;
+                    count = 0;
+                    temp2 = "";
+                    temp = "";
+                }
+                else if(i == text.length()-1 && b){
+                    res += temp2;
+                }
+            }
+            else{
+                res += text.charAt(i) + "";
+            }
+            
+        }
+        
+        return res;
+    }
+}
