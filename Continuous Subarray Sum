@@ -1,0 +1,28 @@
+class Solution {
+    public boolean checkSubarraySum(int[] nums, int k) {
+        boolean a = false;
+        if(k==0){
+            a = true;
+        }
+        int[] runningSums = new int[nums.length+1];
+        for(int i = 0; i<nums.length; i++){
+            runningSums[i+1] = nums[i] + runningSums[i];
+        }
+        
+        for(int i = 0; i<runningSums.length; i++){
+            for(int j = runningSums.length-1; j>i+1; j--){
+                if(a){
+                    if((runningSums[j] - runningSums[i]) == 0){
+                        return true;
+                    }
+                }
+                else{
+                    if((runningSums[j] - runningSums[i]) % k == 0){
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+}
