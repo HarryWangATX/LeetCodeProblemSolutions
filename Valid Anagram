@@ -1,0 +1,21 @@
+class Solution {
+    public boolean isAnagram(String s, String t) {
+        if(s.length() != t.length()){
+            return false;
+        }
+        int[] ana1 = new int[26];
+        int[] ana2 = new int[26];
+        
+        for(int i = 0; i<s.length(); i++){
+            ana1[s.charAt(i) - 'a']++;
+            ana2[t.charAt(i) - 'a']++;
+        }
+        
+        for(int i = 0; i<26; i++){
+            if(ana1[i] != ana2[i]){
+                return false;
+            }
+        }
+        return true;
+    }
+}
