@@ -1,0 +1,33 @@
+class Solution {
+    public int[] findDiagonalOrder(int[][] matrix) {
+        if(matrix.length == 0){
+            return new int[]{};
+        }
+        int[][] u = new int[matrix.length * matrix[0].length][3];
+        int[] u1 = new int[matrix.length*matrix[0].length];
+        int c = 0;
+        int max = 1;
+        int count = 0;
+        for(int i = 0; i<matrix.length; i++){
+            for(int j = 0; j<matrix[0].length; j++){
+                u[c++] = new int[]{i+j, j, matrix[i][j]};
+            }
+        }
+        Arrays.sort(u, new Comparator<int[]>() {
+				public int compare(int[] a, int[] b) {
+					if(a[0] != b[0]){
+                        return a[0] - b[0];
+                    }
+                    if(a[0]%2!=0){
+                        return -(a[1]-b[1]);
+                    }
+					return a[1] - b[1];
+				}
+			});
+        //System.out.println(Arrays.deepToString(u));
+        for(int i = 0; i<u1.length; i++){
+            u1[i] = u[i][2];
+        }
+        return u1;
+    }
+}
