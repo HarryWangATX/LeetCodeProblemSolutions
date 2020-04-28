@@ -1,0 +1,46 @@
+class FirstUnique {
+    private Queue<Integer> queue = new LinkedList<>();
+    private Map<Integer, Integer> map = new HashMap<>();
+    public FirstUnique(int[] nums) {
+        
+        for(int i : nums){
+            if(map.containsKey(i)){
+                map.replace(i, map.get(i)+1);
+            }
+            else{
+                map.put(i, 1);
+            }
+            queue.add(i);
+            
+        }
+        
+    }
+    
+    public int showFirstUnique() {
+        
+        while(!queue.isEmpty() && map.get(queue.peek())>1){
+            queue.poll();
+        }
+        if(queue.isEmpty()){
+            return -1;
+        }
+        return queue.peek();
+    }
+    
+    public void add(int value) {
+        if(map.containsKey(value)){
+            map.replace(value, map.get(value)+1);
+        }
+        else{
+            map.put(value,1);
+            queue.add(value);
+        }
+    }
+}
+
+/**
+ * Your FirstUnique object will be instantiated and called as such:
+ * FirstUnique obj = new FirstUnique(nums);
+ * int param_1 = obj.showFirstUnique();
+ * obj.add(value);
+ */
