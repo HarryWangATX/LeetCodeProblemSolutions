@@ -1,0 +1,39 @@
+class Solution {
+    public int maxDiff(int num) {
+        String nums = num + "";
+        String re = nums.charAt(0)+"";
+        int count = 0;
+        while(re.equals("9")){
+            if(count == nums.length()-1){
+                break;
+            }
+            re = nums.charAt(count++)+"";
+        }
+        for(int i = 0; i<nums.length(); i++){
+            if((nums.charAt(i)+"").equals(re)){
+                nums = nums.substring(0, i) + "9" + nums.substring(i+1);
+            }
+        }
+        String num2 = num + "";
+        count = 0;
+        re = num2.charAt(0)+"";
+        while(re.equals("1") || re.equals("0")){
+            if(count == nums.length()-1){
+                break;
+            }
+            re = num2.charAt(count++)+"";
+        }
+        for(int i = 0; i<num2.length(); i++){
+            if((num2.charAt(i)+"").equals(re)){
+                if(count > 1){
+                    num2 = num2.substring(0, i) + "0" + num2.substring(i+1);
+                }
+                else{
+                    num2 = num2.substring(0, i) + "1" + num2.substring(i+1);
+                }
+            }
+        }
+        
+        return Integer.parseInt(nums) - Integer.parseInt(num2);
+    }
+}
