@@ -1,0 +1,22 @@
+class Solution {
+    public boolean kLengthApart(int[] nums, int k) {
+        boolean started = false;
+        int start = 0;
+        
+        for(int i = 0; i<nums.length; i++){
+            if(nums[i] == 1 && !started){
+                start = i;
+                started = true;
+            }
+            else if(nums[i] == 1){
+                //System.out.println(i - start);
+                if(i - start - 1 < k){
+                    
+                    return false;
+                }
+                start = i;
+            }
+        }
+        return true;
+    }
+}
