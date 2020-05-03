@@ -1,0 +1,38 @@
+class Solution {
+    public int longestSubarray(int[] nums, int limit) {
+        int max = 0;
+        int min = Integer.MAX_VALUE;
+        int maxLength = 0;
+        int res = 0;
+        //System.out.println(limit);
+        for(int i = 0; i<nums.length; i++){
+            for(int j = i; j<nums.length; j++){
+                max = Math.max(nums[j], max);
+                min = Math.min(nums[j], min);
+                //System.out.println(max + " " + min + " " + i);
+                if(max - min <= limit){
+                    maxLength++;
+                    if(j == nums.length-1){
+                        res = Math.max(maxLength, res);
+                        if(res == nums.length){
+                            return res;
+                        }
+                        maxLength = 0;
+                        max = 0;
+                        min = Integer.MAX_VALUE;
+                    }
+                }
+                else {
+                    res = Math.max(maxLength, res);
+                    maxLength = 0;
+                    max = 0;
+                    min = Integer.MAX_VALUE;
+                    break;
+                }
+                
+            }
+        }
+        return res;
+    }
+    
+}
