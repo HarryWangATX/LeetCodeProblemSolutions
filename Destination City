@@ -1,0 +1,33 @@
+class Solution {
+    public String destCity(List<List<String>> paths) {
+        Map<String, Integer> map = new HashMap<>();
+        //Map<Integer, String> map2 = new HashMap<>();
+        //int[][] maps = new int[paths.size()][paths.get(0).size()];
+        int key = 1;
+        List<String> a = new ArrayList<>();
+        for(int i = 0; i<paths.size(); i++){
+            for(int j = 0; j<2; j++){
+                if(map.containsKey(paths.get(i).get(j))){
+                    map.replace(paths.get(i).get(j), map.get(paths.get(i).get(j))+1);
+                }
+                else{
+                    //maps[i][j] = key;
+                    if(j == 1){
+                        a.add(paths.get(i).get(j));
+                    }
+                    map.put(paths.get(i).get(j), 1);
+                    //map2.put(key++, paths.get(i).get(j));
+                }
+            }
+        }
+        //System.out.println(a);
+        for(int i = 0; i<a.size(); i++){
+            if(map.get(a.get(i)) == 1){
+                return a.get(i);
+            }
+        }
+        
+        
+        return "";
+    }
+}
