@@ -1,0 +1,21 @@
+class Solution {
+    public boolean canConstruct(String ransomNote, String magazine) {
+        boolean can = false;
+        for(int i = 0; i<ransomNote.length(); i++){
+            can = false;
+            for(int j = 0; j<magazine.length(); j++){
+                if(ransomNote.charAt(i) == magazine.charAt(j)){
+                    can = true;
+                    magazine = magazine.substring(0, j) + "A" + magazine.substring(j+1);
+                    //System.out.println
+                    break;
+                }
+                
+            }
+            if(!can){
+                return false;
+            }
+        }
+        return true;
+    }
+}
