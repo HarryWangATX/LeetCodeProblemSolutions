@@ -1,0 +1,25 @@
+class Solution {
+    public String[] findWords(String[] words) {
+        String[] rows = new String[]{"QWERTYUIOPqwertyuiop", "ASDFGHJKLasdfghjkl", "ZXCVBNMzxcvbnm"};
+        List<String> res = new ArrayList<>();
+        
+        for (String word : words) {
+            char first = word.charAt(0);
+            int row = rows[0].indexOf(first) == -1 ? rows[1].indexOf(first) == -1 ? 2 : 1 : 0;
+            boolean flag = true;
+            
+            for (int i = 1; flag && i < word.length(); i++) {
+                if (rows[row].indexOf(word.charAt(i)) == -1) {
+                    flag = false;
+                }
+            }
+            
+            if (flag) {
+                res.add(word);
+            }
+        }
+        
+        return res.toArray(new String[0]);
+        
+    }
+}
