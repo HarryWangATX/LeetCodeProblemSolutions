@@ -1,0 +1,33 @@
+class Solution {
+    public boolean checkRecord(String s) {
+        int countA = 0;
+        int countL = 1;
+        int max = 0;
+        char[] p = new char[s.length()];
+        for(int i = 0; i<s.length(); i++){
+            if(s.charAt(i) == 'A'){
+                countA++;
+            }
+            else if(s.charAt(i) == 'L'){
+                p[i] = 'L';
+            }
+        }
+        //System.out.println(Arrays.toString(p));
+        for(int i = 0; i<s.length()-1; i++){
+            if(p[i] == p[i+1] && p[i] == 'L'){
+                countL++;
+                //System.out.println(countL);
+            }
+            else{
+                max = Math.max(countL, max);
+                countL = 1;
+            }
+        }
+        max = Math.max(max, countL);
+        if(countA <= 1 && max <= 2){
+            return true;
+        }
+
+        return false;
+    }
+}
