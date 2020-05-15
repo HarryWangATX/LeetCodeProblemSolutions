@@ -3,8 +3,6 @@ Answers for the leetcode problems
 
 Solutions MAY vary with offical LeetCode Solutions.
 
-Most of the solutions posted here are not in Leetcode.
-
 PLEASE do a pull request for more elegant solutions.
 
 
