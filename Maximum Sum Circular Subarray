@@ -1,0 +1,27 @@
+class Solution {
+    public int maxSubarraySumCircular(int[] A) {
+        int max1 = maxSubArraySum(A, A.length);
+        int sum = 0;
+        for(int i = 0; i<A.length; i++){
+            sum+=A[i];
+            A[i] = -A[i];
+        }
+        int invert = maxSubArraySum(A, A.length);
+        if(invert + sum == 0){
+            return max1;
+        }
+        return Math.max(max1, sum+invert);
+    }
+    public static int maxSubArraySum(int a[], int size) 
+    { 
+        int max_so_far = a[0]; 
+        int curr_max = a[0]; 
+        //Set<Integer> set = new HashSet<>();
+        for (int i = 1; i < size; i++) 
+        { 
+            curr_max = Math.max(a[i], curr_max+a[i]); 
+            max_so_far = Math.max(max_so_far, curr_max); 
+        } 
+        return max_so_far; 
+    } 
+}
