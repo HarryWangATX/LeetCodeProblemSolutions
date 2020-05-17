@@ -1,0 +1,24 @@
+class Solution {
+	public List<Integer> peopleIndexes(List<List<String>> favoriteCompanies) {
+	    List<Set<String>> sets = new ArrayList<>();
+	    for(List<String> x : favoriteCompanies){
+	        sets.add(new HashSet<>(x));
+	    }
+	    List<Integer> ret = new ArrayList<>();
+	    outer:
+	    for(int i = 0;i < favoriteCompanies.size();i++){
+	        inner:
+	        for(int j = 0;j < favoriteCompanies.size();j++){
+	        	if(i == j)continue;
+	        	for(String y : favoriteCompanies.get(i)){
+	        		if(!sets.get(j).contains(y)){
+	        			continue inner;
+	        		}
+	        	}
+	        	continue outer;
+	        }
+	        ret.add(i);
+	    }
+	    return ret;
+	}
+}	
