@@ -1,0 +1,84 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode oddEvenList(ListNode head) {
+        if(head == null || head.next == null){
+            return head;
+        }
+        List<Integer> odd = new ArrayList<>();
+        List<Integer> even = new ArrayList<>();
+        ListNode temp = head.next;
+        odd.add(head.val);
+        even.add(temp.val);
+        while(head.next != null && head.next.next != null){
+            odd.add(head.next.next.val);
+            head = head.next.next;
+        }
+        while(temp.next != null && temp.next.next != null){
+            even.add(temp.next.next.val);
+            temp = temp.next.next;
+        }
+        ListNode res = new ListNode(odd.get(0));
+        for(int i = 0; i<even.size(); i++){
+            odd.add(even.get(i));
+        }
+        res = arrayToList(odd, odd.size());
+        //System.out.println(odd);
+        //System.out.println(even);
+        /*
+        ListNode currOdd = head;
+        ListNode currEven = head.next;
+        ListNode curr = head;
+        while(curr != null){
+            currEven = currOdd.next;
+            if(currEven.next == null){
+                break;
+            }
+            currOdd = currEven.next;
+            ListNode temp = currOdd.next;
+            
+            curr.next = currOdd;
+            currOdd.next = currEven;
+            currEven.next = temp;
+            curr = curr.next;
+            currEven = temp;
+            
+            
+        }
+        */
+        return res;
+    }
+    static ListNode arrayToList(List<Integer> arr, int n) 
+    { 
+        ListNode root = null; 
+        for (int i = 0; i < n; i++) 
+            root = insert(root, arr.get(i)); 
+        return root; 
+    } 
+    static ListNode insert(ListNode root, int item) 
+    { 
+        ListNode temp = new ListNode(); 
+        ListNode ptr; 
+        temp.val = item; 
+        temp.next = null; 
+
+        if (root == null) 
+            root = temp; 
+        else 
+        { 
+            ptr = root; 
+            while (ptr.next != null) 
+                ptr = ptr.next; 
+            ptr.next = temp; 
+        } 
+        return root; 
+    } 
+}
