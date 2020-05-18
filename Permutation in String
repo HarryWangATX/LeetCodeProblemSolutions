@@ -1,0 +1,44 @@
+class Solution {
+    public boolean checkInclusion(String s1, String s2) {
+        /*
+        int[] hash1 = new int[26];
+        int[] hash2 = new int[26];
+        for(int i = 0; i<s1.length(); i++){
+            hash1[s1.charAt(i) - 'a']++;
+        }
+        for(int i = 0; i<s2.length(); i++){
+            hash2[s2.charAt(i) - 'a']++;
+        }
+        for(int i = 0; i<26; i++){
+            if(hash1[i] != 0){
+                if(hash1[i] > hash2[i]){
+                    return false;
+                }
+            }
+        }
+        */
+        List<Integer> index = new ArrayList<>();
+        if(s1.length() > s2.length()){
+            return false;
+        }
+        int n = s2.length();
+        int m = s1.length();
+        int[] textHash = new int[26];
+        int[] patternHash = new int[26];
+        for (int i=0; i<m; i++) {
+            textHash[s2.charAt(i) - 'a']++;
+            patternHash[s1.charAt(i) - 'a']++;
+        }
+        for (int i = m; i < n; i++) {
+            if (Arrays.equals(textHash, patternHash)){
+                index.add(i-m);
+            }
+            textHash[s2.charAt(i-m) - 'a']--;
+            textHash[s2.charAt(i) - 'a']++;
+        }
+        if (Arrays.equals(textHash, patternHash))
+            index.add(n-m);
+        return index.size()!=0;
+        
+    }
+}
