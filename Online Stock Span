@@ -1,0 +1,24 @@
+class StockSpanner {
+    Deque<int[]> stack = new LinkedList<>();
+    public StockSpanner() {
+      
+  
+    }
+    public int next(int price) {
+        int[] stock = new int[] {1, price};
+      
+        while (!stack.isEmpty() && stack.peek()[1] <= price) {
+            stock[0] += stack.pop()[0];
+        }
+        stack.push(stock);
+        //System.out.println(Arrays.toString(stock));
+        return stock[0];
+  
+    }
+}
+
+/**
+ * Your StockSpanner object will be instantiated and called as such:
+ * StockSpanner obj = new StockSpanner();
+ * int param_1 = obj.next(price);
+ */
