@@ -1,0 +1,58 @@
+class Solution {
+    public int countSquares(int[][] matrix) {
+        /*
+        int count = 0;
+        for(int i = 1; i <= matrix.length; i++){
+            for(int j = 0; j < matrix.length; j++){
+                for(int z = 0; z < matrix[0].length; z++){
+                    if(isSquare(matrix, i, j, z)){
+                        count++;
+                    }
+                }
+            }
+        }
+        return count;
+        */
+        
+        
+        if(matrix.length == 0){
+            return 0;
+        }
+        int r = matrix.length;
+        int c = matrix[0].length;
+        
+        int[][] dp = new int[r][c];
+        int count = 0;
+        for(int i = 0; i<r; i++){
+            for(int j = 0; j<c; j++){
+                if(matrix[i][j] == 1){
+                    if(i == 0 || j == 0){
+                        dp[i][j] = 1;
+                    }
+                    else{
+                        dp[i][j] = Math.min(Math.min(dp[i][j-1], dp[i-1][j]), dp[i-1][j-1]) + 1;
+                    }
+                }
+                count += dp[i][j];
+            }
+        }
+        
+        return count;
+    }
+    /*
+    public boolean isSquare(int[][] matrix, int sideL, int row, int col){
+        if(row + sideL > matrix.length || col + sideL > matrix[0].length){
+            return false;
+        }
+        
+        for(int i = row; i < row + sideL; i++){
+            for(int j = col; j < col + sideL; j++){
+                if(matrix[i][j] == 0){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    */
+}
