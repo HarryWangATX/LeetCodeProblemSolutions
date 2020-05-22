@@ -1,0 +1,21 @@
+class Solution {
+    public String frequencySort(String s) {
+        Character[] array = new Character[s.length()];
+        Map<Character, Integer> frequency = new HashMap<>();
+        for (int index = 0; index < s.length(); index++) {
+            int value = frequency.getOrDefault(s.charAt(index), 0) + 1;
+            frequency.put(s.charAt(index), value);
+            array[index] = s.charAt(index);
+        }
+        
+        Arrays.sort(array, (Character a, Character b) -> {
+            if (Integer.compare(frequency.get(b), frequency.get(a)) == 0) {
+                return Character.compare(b, a);
+            }
+            return Integer.compare(frequency.get(b), frequency.get(a));
+        });
+        
+        
+        return Arrays.stream(array).map(String::valueOf).collect(Collectors.joining());
+    }
+}
