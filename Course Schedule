@@ -1,0 +1,41 @@
+class Solution {
+    int[] visited;
+    List<Integer>[] list;
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        if(prerequisites.length <= 1){
+            return true;
+        }
+        list = new ArrayList[numCourses];
+        for(int i = 0; i<numCourses; i++){
+            list[i] = new ArrayList<>();
+        }
+        for(int i = 0; i<prerequisites.length; i++){
+            list[prerequisites[i][1]].add(prerequisites[i][0]);
+        }
+        //System.out.println(Arrays.toString(list));
+        visited = new int[numCourses];
+        for(int i = 0; i<numCourses; i++){
+            if(hasCycle(i)){
+                return false;
+            }
+        }
+        return true;
+    }
+    public boolean hasCycle(int u){
+        if(visited[u] == 1){
+            return true;
+        }
+        if(visited[u] == 2){
+            return false;
+        }
+        
+        visited[u] = 1;
+        for(int i = 0; i<list[u].size(); i++){
+            if(hasCycle(list[u].get(i))){
+                return true;
+            }
+        }
+        visited[u] = 2;
+        return false;
+    }
+}
