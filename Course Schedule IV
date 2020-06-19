@@ -1,0 +1,32 @@
+class Solution {
+public:
+   vector<bool> checkIfPrerequisite(int n, vector<vector<int>>& prerequisites, vector<vector<int>>& queries) {
+       vector<set<int>> cs(n+1);
+       
+       for(auto x: prerequisites)
+           cs[x[0]].insert(x[1]);
+       
+
+       for(int i=0; i<=n; i++){
+           for(auto x: cs[i])
+               for(auto y: cs[x])
+                   if(!cs[i].count(y))
+                       cs[i].insert(y);
+       }
+       for(int i=0; i<=n; i++){
+           for(auto x: cs[i])
+               for(auto y: cs[x])
+                   if(!cs[i].count(y))
+                       cs[i].insert(y);
+       }
+       vector<bool> ans;
+       for(auto x: queries){
+           if(cs[x[0]].count(x[1]))
+               ans.push_back(true);
+           else
+               ans.push_back(false);
+       }
+       
+       return ans;
+   }
+};
