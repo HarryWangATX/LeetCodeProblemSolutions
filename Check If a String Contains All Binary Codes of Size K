@@ -1,0 +1,51 @@
+class Solution {
+    List<String> codes = new ArrayList<>();
+    public boolean hasAllCodes(String s, int k) {
+        //System.out.println(codes.size());
+        int[] list = {0, 1};
+        String store = "";
+        //dfs(list, 0, store, k);
+        int size = 0;
+        
+        size = (int)Math.pow(2, k); 
+        
+        
+        Set<String> set = new HashSet<>();
+        //System.out.println(codes);
+        for(int i = 0; i<=s.length()-k; i++){
+            String code = "";
+            for(int j = i; j<i+k; j++){
+                code+=s.charAt(j)+"";
+            }
+            //System.out.println(code);
+            set.add(code);
+            if(set.size() == size){
+                return true;
+            }
+        }
+        //System.out.println();
+        //System.out.println(set.size() + " " + size);
+        return set.size() == size;
+    }
+    public static int fa(int n) {
+      int fact = 1;
+      int i = 1;
+      while(i <= n) {
+         fact *= i;
+         i++;
+      }
+      return fact;
+   }
+    public void dfs(int[] list, int l, String store, int size){
+        if(l>=size){
+            codes.add(store);
+            return ;
+        }
+        for(int i = 0; i<list.length; i++){
+            store+=list[i]+"";
+            dfs(list, l+1, store, size);
+            store = store.substring(0, store.length()-1);
+        }
+    }
+    
+}
