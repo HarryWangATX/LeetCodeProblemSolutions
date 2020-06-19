@@ -1,0 +1,44 @@
+class Solution {
+        
+    public int findCheapestPrice(int n, int[][] flights, int src, int dst, int K) {
+        Map<Integer, List<int[]>> map = new HashMap<>();
+        for (int[] flight: flights) {
+            List<int[]> list = map.getOrDefault(flight[0], new ArrayList<>());
+            list.add(flight);
+            map.put(flight[0], list);
+        }
+        int[] memo = new int[n];
+        Arrays.fill(memo, Integer.MAX_VALUE);
+        if ( ! map.containsKey(src) ) {
+            return -1;
+        }
+        int res = dfsCheapestPrice(src, 0, 0, map, memo, dst, K);
+        return res == Integer.MAX_VALUE ? -1 : res;
+    }
+    
+    private int dfsCheapestPrice(int currStopNum, int stopsTotal, int totalPrice, Map<Integer, List<int[]>> map, int[] memo, int dst, int K) 
+    {
+        if (memo[currStopNum] != Integer.MAX_VALUE && memo[currStopNum] < totalPrice) {
+            return memo[currStopNum];
+        }
+        
+        if (currStopNum == dst) {
+            return totalPrice;
+        }
+        
+        if (stopsTotal > K || ! map.containsKey(currStopNum) ) {
+            return Integer.MAX_VALUE;
+        }
+        
+        int res = Integer.MAX_VALUE;
+        for (int[] flight: map.get(currStopNum)) {
+            int tmp = dfsCheapestPrice(flight[1], stopsTotal + 1, totalPrice + flight[2], map, memo, dst, K);
+            if (tmp != Integer.MAX_VALUE) {
+                memo[flight[1]] = tmp;
+            }
+            res = Math.min(tmp, res);
+        }
+        
+        return res;
+    }
+}
