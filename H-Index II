@@ -1,0 +1,25 @@
+class Solution {
+    public int hIndex(int[] citations) {
+        int lo = 0;
+		int hi = citations.length - 1;
+		int length = citations.length - 1;
+		int hIndex = 0;
+		while(lo <= hi) {
+			int mid = lo + (hi - lo)/2;
+			int h = citations[mid];
+			int rightL = (length - mid) + 1;
+
+			if(h == rightL) {
+				hIndex = Math.max(hIndex, rightL);
+				break;
+			} else if(h < rightL) {
+				lo = mid + 1;
+			} else {
+				hIndex = Math.max(hIndex, rightL);
+				hi = mid - 1;
+			}
+		}
+
+		return hIndex;
+    }
+}
