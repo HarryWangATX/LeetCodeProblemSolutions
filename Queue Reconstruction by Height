@@ -1,0 +1,33 @@
+class Solution {
+    public int[][] reconstructQueue(int[][] people) {
+        if (people == null || people.length == 0 || people[0] == null || people[0].length != 2) {
+            return new int[0][0];
+        }
+        int[][] res = new int[people.length][2];
+        for(int i = 0; i<res.length; i++){
+            res[i][1] = -1;
+        }
+        Arrays.sort(people, new Comparator<int[]>(){
+            public int compare(int[] o1, int[] o2){
+                if(o1[0] == o2[0]){
+                    return o1[1] - o2[1];
+                }
+                return o1[0]-o2[0];
+            }
+        });
+        
+        for(int i = 0; i<people.length; i++){
+            int index = -1;
+            for (int j = 0; j < res.length; j++) {
+                if (res[j][1] == -1 || res[j][0] >= people[i][0]) {
+                    index++;
+                }
+                if (res[j][1] == -1 && index >= people[i][1]) {
+                    res[j] = people[i];
+                    break;
+                }
+            }
+        }
+        return res;
+    }
+}
