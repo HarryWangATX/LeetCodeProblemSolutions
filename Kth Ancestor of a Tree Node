@@ -1,0 +1,42 @@
+class TreeAncestor {
+    int[][] allAncestors;
+    int size;
+    public TreeAncestor(int n, int[] parent) {
+        allAncestors = new int[n+1][(int)Math.ceil(Math.log10(n)/Math.log10(2))+1];
+        for(int i = 0; i<allAncestors.length; i++){
+            Arrays.fill(allAncestors[i], -1);
+        }
+        for(int v = 0; v<parent.length; v++){
+            //System.out.println("Asdfadsf");
+            allAncestors[v][0] = parent[v]; 
+            if(parent[v] == -1){
+                continue;
+            }
+            for (int i = 1; i <= allAncestors[0].length; i++) {
+                
+                //System.out.println("afadsfasdfsdfasd");
+                allAncestors[v][i] = allAncestors[allAncestors[v][i - 1]][i - 1]; 
+                //System.out.println("asdfjasdhfjlskdhfasd");
+                if (allAncestors[v][i] == -1) 
+                    break; 
+            } 
+        }
+        
+    }
+    public int getKthAncestor(int node, int k) {
+        for (int i = 0; i <= allAncestors[0].length; i++) { 
+            if ((k & (1 << i)) != 0) { 
+                node = allAncestors[node][i]; 
+                if (node == -1) 
+                    break; 
+            } 
+        } 
+        return node; 
+    }
+}
+
+/**
+ * Your TreeAncestor object will be instantiated and called as such:
+ * TreeAncestor obj = new TreeAncestor(n, parent);
+ * int param_1 = obj.getKthAncestor(node,k);
+ */
