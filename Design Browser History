@@ -1,0 +1,45 @@
+class BrowserHistory {
+    List<String> url = new ArrayList<>();
+    int ix = 0;
+    public BrowserHistory(String homepage) {
+        url.add(homepage);
+    }
+    
+    public void visit(String url1) {
+        if(ix < url.size()-1){
+            for(int i = url.size()-1; i>ix; i--){
+                url.remove(i);
+            }
+        }
+        url.add(url1);
+        ix++;
+    }
+    
+    public String back(int steps) {
+        if(ix - steps < 0){
+            ix = 0;
+            return url.get(ix);
+        }
+        else{
+            ix -= steps;
+        }
+        return url.get(ix);
+    }
+    
+    public String forward(int steps) {
+        if(ix + steps >= url.size()){
+            ix = url.size()-1;
+            return url.get(ix);
+        }
+        ix += steps;
+        return url.get(ix);
+    }
+}
+
+/**
+ * Your BrowserHistory object will be instantiated and called as such:
+ * BrowserHistory obj = new BrowserHistory(homepage);
+ * obj.visit(url);
+ * String param_2 = obj.back(steps);
+ * String param_3 = obj.forward(steps);
+ */
