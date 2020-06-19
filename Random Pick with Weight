@@ -1,0 +1,31 @@
+class Solution {
+    private int[] weight;
+    private int[] dp;
+    private int max;
+    public Solution(int[] w) {
+        weight = w;
+        //Arrays.sort(weight);
+        dp = new int[weight.length+1];
+        for(int i = 0; i<weight.length; i++){
+            dp[i+1] = dp[i] + weight[i];
+            max+=weight[i];
+        }
+    }
+    
+    public int pickIndex() {
+        int index = (int)(Math.random() * max);
+        int res = 0;
+        for(int i = 0; i<dp.length-1; i++){
+            if(index >= dp[i] && index <= dp[i+1]){
+                res = i;
+            }
+        }
+        return res;
+    }
+}
+
+/**
+ * Your Solution object will be instantiated and called as such:
+ * Solution obj = new Solution(w);
+ * int param_1 = obj.pickIndex();
+ */
