@@ -1,0 +1,42 @@
+class Solution {
+    public void solve(char[][] board) {
+        if (board.length == 0) return;
+        int r = board.length, c = board[0].length; 
+        char toFillWith = '*';
+        
+        for (int i = 0; i < r; i++) {
+            for (int j = 0; j < c; j++) {
+                if (i == 0 || i == r - 1 || j == 0 || j == c - 1) {
+                    dfs(board, i, j, 'O', toFillWith);
+                }
+            }
+        }
+        for (int i = 1; i < r - 1; i++) {
+            for (int j = 1; j < c - 1; j++) {
+                if (board[i][j] == 'O') {
+                    dfs(board, i, j, 'O', 'X');
+                }
+            }
+        }
+        for (int i = 0; i < r; i++) {
+            for (int j = 0; j < c; j++) {
+                if (board[i][j] == toFillWith) {
+                    dfs(board, i, j, toFillWith, 'O');
+                }
+            }
+        }
+        
+        return;
+    }
+    
+    public void dfs(char[][] board, int i, int j, char target, char fill) {
+        if (i >= 0 && i < board.length && j >= 0 && j < board[i].length && board[i][j] == target) {
+            board[i][j] = fill;
+            dfs(board, i + 1, j, target, fill);
+            dfs(board, i, j + 1, target, fill);
+            dfs(board, i - 1, j, target, fill);
+            dfs(board, i, j - 1, target, fill);
+        }
+        return;
+    }
+}
