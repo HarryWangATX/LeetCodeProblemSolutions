@@ -1,0 +1,34 @@
+class Solution {
+    public double[] medianSlidingWindow(int[] nums, int k) {
+        List<Integer> val = new ArrayList();
+        for(int i=0; i<k;i++)
+            val.add(nums[i]);
+        Collections.sort(val);
+        
+        double[] result = new double[nums.length-k+1];
+        if(nums.length == 0)
+            return result;
+       result[0] = (k % 2 ==  0) ? (val.get(k/2-1))/2.0+(val.get(k/2))/2.0 : val.get(k/2);
+        for(int i = 1; i<=nums.length-k;i++){
+            int pos = findPos(val,nums[i-1]);
+            val.remove(pos);
+            pos = findPos(val,nums[i+k-1]);
+            if(val.size() > 0 && val.get(pos) < nums[i+k-1]) 
+                val.add(pos+1,nums[i+k-1]);
+            else 
+                val.add(pos,nums[i+k-1]);
+            result[i] = (k % 2 ==  0) ? (val.get(k/2-1))/2.0+(val.get(k/2))/2.0 : val.get(k/2);
+        }
+         return result;   
+    }
+    
+    public int findPos(List<Integer> val,int num){
+        int low = 0,high=val.size()-1;
+        while(low < high){
+            int mid = (low+high)/2;
+            if(val.get(mid) < num) low = mid+1;
+            else high = mid;
+        }
+        return low;
+    }
+}
