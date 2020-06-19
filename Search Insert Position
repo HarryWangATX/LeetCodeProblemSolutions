@@ -1,16 +1,19 @@
 class Solution {
     public int searchInsert(int[] nums, int target) {
-        for(int i = 0; i<nums.length; i++){
-            if(nums[i] == target){
-                return i;
+        return lowerBound(nums, target);
+    }
+    public int lowerBound(int[] nums, int target){
+        int L = 0;
+        int R = nums.length;
+        while(L<R){
+            int mid = (L+R)/2;
+            if(nums[mid] >= target){
+                R = mid;
             }
-            else if(target < nums[i]){
-                return i;
+            else{
+                L = mid+1;
             }
         }
-        if(target>nums[nums.length-1]){
-            return nums.length;
-        }
-        return 0;
+        return L;
     }
 }
