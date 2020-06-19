@@ -1,0 +1,68 @@
+class AllOne {
+
+    /** Initialize your data structure here. */
+    Map<String, Integer> map = new HashMap<>();
+    public AllOne() {
+        
+    }
+    
+    /** Inserts a new key <Key> with value 1. Or increments an existing key by 1. */
+    public void inc(String key) {
+        map.put(key, map.getOrDefault(key, 0)+1);
+    }
+    
+    /** Decrements an existing key by 1. If Key's value is 1, remove it from the data structure. */
+    public void dec(String key) {
+        if(map.containsKey(key) == false)
+            return;
+        map.put(key, map.get(key)-1);
+        if(map.get(key)==0){
+            map.remove(key);
+        }
+    }
+    
+    /** Returns one of the keys with maximal value. */
+    public String getMaxKey() {
+        if(map.size() == 0){
+            return "";
+        }
+        String res = "";
+        int min = Integer.MIN_VALUE;
+        Iterator hmIterator = map.entrySet().iterator(); 
+        while (hmIterator.hasNext()) { 
+            Map.Entry mapElement = (Map.Entry)hmIterator.next(); 
+            if((int)mapElement.getValue() >= min){
+                res = (String)mapElement.getKey();
+                min = (int)mapElement.getValue();
+            } 
+        } 
+        return res;
+    }
+    
+    /** Returns one of the keys with Minimal value. */
+    public String getMinKey() {
+        if(map.size() == 0){
+            return "";
+        }
+        String res = "";
+        int min = Integer.MAX_VALUE;
+        Iterator hmIterator = map.entrySet().iterator(); 
+        while (hmIterator.hasNext()) { 
+            Map.Entry mapElement = (Map.Entry)hmIterator.next(); 
+            if((int)mapElement.getValue() <= min){
+                res = (String)mapElement.getKey();
+                min = (int)mapElement.getValue();
+            } 
+        } 
+        return res;
+    }
+}
+
+/**
+ * Your AllOne object will be instantiated and called as such:
+ * AllOne obj = new AllOne();
+ * obj.inc(key);
+ * obj.dec(key);
+ * String param_3 = obj.getMaxKey();
+ * String param_4 = obj.getMinKey();
+ */
