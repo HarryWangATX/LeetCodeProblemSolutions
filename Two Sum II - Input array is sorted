@@ -1,0 +1,28 @@
+class Solution {
+    public int[] twoSum(int[] numbers, int target) {
+        //System.out.println(binarySearch(numbers, 4));
+        for(int i = 0; i<numbers.length; i++){
+            int diff = target - numbers[i];
+            int ix = binarySearch(numbers, diff, i+1, numbers.length-1);
+            if(ix > i){
+                return new int[]{i+1, ix+1};
+            }
+        }
+        return new int[]{};
+    }
+    public int binarySearch(int[] number, int tar, int l, int r){
+        while(l<=r){
+            int mid = (l + r)/2;
+            if(number[mid] == tar){
+                return mid;
+            }
+            else if(number[mid] < tar){
+                l = mid + 1;
+            }
+            else{
+                r = mid - 1;
+            }
+        }
+        return -1;
+    }
+}
