@@ -1,0 +1,51 @@
+class Solution {
+    public void solveSudoku(char[][] board) {
+        List<Set<Integer>> square = new ArrayList<>();
+        List<Set<Integer>> row = new ArrayList<>();
+        List<Set<Integer>> col = new ArrayList<>();
+        for(int i = 0; i<9; i++){
+            square.add(new HashSet<>());
+            row.add(new HashSet<>());
+            col.add(new HashSet<>());
+        }
+        for(int i = 0; i<board.length; i++){
+            for(int j = 0; j<board.length; j++){
+                if(board[i][j] == '.'){
+                    continue;
+                }
+                int squares = (i/3) * 3 + (j/3);
+                square.get(squares).add(board[i][j] - '0');
+                row.get(i).add(board[i][j]-'0');
+                col.get(j).add(board[i][j] - '0');
+            }
+        }
+        solve(0, 0, board, square, row, col);
+    }
+    public boolean solve(int x, int y, char[][] board, List<Set<Integer>> square, List<Set<Integer>> row, List<Set<Integer>> col){
+         if(y == 9)
+             return true;
+
+        int nx = (x + 1) % 9;
+        int ny = (nx == 0) ? y + 1 : y;
+       
+        if(board[y][x] != '.') return solve(nx,ny, board, square, row, col);
+   
+        int ib = (y/3)*3 + x/3;
+       
+        for(int i=1; i<10; i++){
+            if(row.get(y).contains(i) || (col.get(x).contains(i)) || (square.get(ib).contains(i))){
+               continue;
+            }
+            square.get(ib).add(i);
+            row.get(y).add(i);
+            col.get(x).add(i);
+            board[y][x] = (char)(i + '0');
+            if(solve(nx, ny, board, square, row, col)) return true;
+            board[y][x] = '.';
+            square.get(ib).remove(i);
+            row.get(y).remove(i);
+            col.get(x).remove(i);      
+        }
+        return false;
+    }
+}
