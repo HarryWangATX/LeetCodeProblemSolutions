@@ -1,0 +1,46 @@
+class Solution {
+    public String longestDupSubstring(String S) {
+        int start = 0;
+        int end = S.length()-1;
+        String res = "";
+        while(start <= end){
+            int mid = (start + end)/2;
+            String dupSize = dupSubstring(S, mid);
+            if(dupSize == null){
+                end = mid - 1;
+            }
+            else{
+                start = mid + 1;
+                res = dupSize;
+            }
+        }
+        return res;
+    }
+    private String dupSubstring(String s, int m) {
+        int R = 31;
+        Set<Long> set = new HashSet<>();
+
+        long patHash = hash(s, m, R);
+        set.add(patHash);
+        long RM = 1;
+        for (int i = 1; i <= m - 1; i++)
+            RM = (R * RM);
+
+        for (int i = m; i < s.length(); i++) {
+            patHash = (patHash - RM * s.charAt(i - m));
+            patHash = (patHash * R + s.charAt(i));
+            if (!set.add(patHash)) {
+                return s.substring(i - m + 1, i + 1);
+            }
+        }
+
+        return null;
+    }
+    private long hash(String s, int m, int R) {
+        long h = 0;
+        for (int j = 0; j < m; j++){
+            h = (R * h + s.charAt(j));
+        }
+        return h;
+    }
+}
