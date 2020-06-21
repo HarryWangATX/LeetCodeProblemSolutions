@@ -1,0 +1,28 @@
+class Solution {
+    int count = 0;
+    String res = "";
+    public String getPermutation(int n, int k) {
+        dfs(n, "", k, new int[n+1]);
+        return res;
+    }
+    public boolean dfs(int n, String store, int k, int[] visited){
+        if(store.length() == n){
+            count++;
+            if(count == k){
+                res = store;
+                return true;
+            }
+            return false;
+        }
+        String res = "";
+        for(int i = 1; i <= n; i++){
+            if(visited[i] > 0) continue;
+            store += i + "";
+            visited[i]++;
+            if(dfs(n, store, k, visited)) return true;
+            visited[i]--;
+            store = store.substring(0, store.length()-1);
+        }
+        return false;
+    }
+}
