@@ -1,0 +1,19 @@
+class Solution {
+    public int numTrees(int n) {
+        return dp(n, new Integer[n+1]);
+    }
+    public int dp(int n, Integer[] memo){
+        if(n == 0 || n == 1){
+            return 1;
+        }
+        if(memo[n] != null){
+            return memo[n];
+        }
+        int count = 0;
+        for(int i = 1; i<=n; i++){
+            count += dp(i-1, memo)*dp(n-i, memo);
+        }
+        memo[n] = count;
+        return count;
+    }
+}
