@@ -1,0 +1,18 @@
+class Solution {
+    public int findPeakElement(int[] nums) {
+        long peak = Long.MIN_VALUE;
+        long peak2 = Long.MIN_VALUE;
+        for(int i = 0; i<nums.length; i++){
+            if(i == nums.length-1){
+                if(nums[i] > peak && nums[i] > peak2){
+                    return i;
+                }
+            }
+            if(nums[i] > peak && nums[i] > nums[i+1]){
+                return i;
+            }
+            peak = (long)nums[i];
+        }
+        return -1;
+    }
+}
