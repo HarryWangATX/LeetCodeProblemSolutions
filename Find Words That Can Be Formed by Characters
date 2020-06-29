@@ -1,0 +1,27 @@
+class Solution {
+    public int countCharacters(String[] words, String chars) {
+        HashMap<Character, Integer> table1 = new HashMap<>();
+        int sum = 0;
+        for(int i = 0; i<chars.length(); i++){
+            table1.put(chars.charAt(i), table1.getOrDefault(chars.charAt(i), 0)+1);
+        }
+        for(int i = 0; i<words.length; i++){
+            boolean has = true;
+            HashMap<Character, Integer> table = (HashMap<Character, Integer>) table1.clone();
+            for(int j = 0; j<words[i].length(); j++){
+                if(!table.containsKey(words[i].charAt(j))){
+                    has = false;
+                    break;
+                }
+                table.put(words[i].charAt(j), table.get(words[i].charAt(j))-1);
+                if(table.get(words[i].charAt(j)) == 0){
+                    table.remove(words[i].charAt(j));
+                }
+            }
+            if(has){
+                sum += words[i].length();
+            }
+        }
+        return sum;
+    }
+}
