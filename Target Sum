@@ -1,0 +1,15 @@
+class Solution {
+    int ans = 0;
+    public int findTargetSumWays(int[] nums, int S) {
+        dfs(nums, 0, 0, S);
+        return ans;
+    }
+    public void dfs(int[] nums, int sum, int index, int S){
+        if(index == nums.length){
+            if(sum == S) ans++;
+            return;
+        }
+        dfs(nums, sum+nums[index], index+1, S);
+        dfs(nums, sum-nums[index], index+1, S);
+    }
+}
