@@ -1,0 +1,69 @@
+class Trie {
+    Set<String> word;
+    Set<String> pre;
+    public Trie() {
+        word = new HashSet<>();
+        pre = new HashSet<>();
+    }
+
+    public void insert(String word) {
+        this.word.add(word);
+        for(int i = 0; i<=word.length(); i++){
+            pre.add(word.substring(0, i));
+        }
+    }
+
+    public boolean search(String word) {
+        return this.word.contains(word);
+    }
+
+    public boolean startsWith(String prefix) {
+        return pre.contains(prefix);
+    }
+}
+
+class Solution {
+    Trie prefix = new Trie();
+    char[][] gBoard;
+    Set<String> rep = new HashSet<>();
+    List<String> res = new ArrayList<>();
+    public List<String> findWords(char[][] board, String[] words) {
+        gBoard = board;
+        for(int i = 0; i<words.length; i++){
+            prefix.insert(words[i]);
+        }
+        for(int i = 0; i<board.length; i++){
+            for(int j = 0; j<board[0].length; j++){
+                if(prefix.startsWith(board[i][j]+"")){
+                    dfs(i, j, "");
+                }
+            }
+        }
+        return res;
+    }
+    public void dfs(int i, int j, String store){
+        if(i < 0 || j < 0 || j>=gBoard[0].length || i >= gBoard.length){
+            return ;
+        }
+        if(gBoard[i][j] == 'A'){
+            return ;
+        }
+        if(!prefix.startsWith(store)){
+            return ;
+        }
+        store += gBoard[i][j]+"";
+        if(prefix.search(store) && !rep.contains(store)){
+            res.add(store);
+            rep.add(store);
+        }
+        char temp = gBoard[i][j];
+        
+        gBoard[i][j] = 'A';
+        dfs(i, j-1, store);
+        dfs(i, j+1, store);
+        dfs(i-1, j, store);
+        dfs(i+1, j, store);
+        gBoard[i][j] = temp;
+        store = store.substring(0, store.length()-1);
+    }
+}
