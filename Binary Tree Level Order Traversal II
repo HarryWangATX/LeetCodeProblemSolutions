@@ -1,0 +1,61 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    List<List<Integer>> list = new ArrayList<>();
+    List<List<Integer>> res = new ArrayList<>();
+    public List<List<Integer>> levelOrderBottom(TreeNode root) {
+        if(root == null) return res;
+        dfs(root, 0);
+        Collections.sort(list, new Comparator<List<Integer>>(){
+            public int compare(List<Integer> o1, List<Integer> o2){
+                return -(o1.get(1) - o2.get(1));
+            } 
+        });
+        //System.out.println(list);
+        List<Integer> temp = new ArrayList<>();
+        int prev = list.get(0).get(1);
+        for(int i = 0; i<list.size(); i++){
+            if(list.get(i).get(1) == prev){  
+                temp.add(list.get(i).get(0));
+            }
+            else{
+                prev = list.get(i).get(1);
+                //System.out.println(temp);
+                res.add(new ArrayList<Integer>(temp));
+                temp = new ArrayList<Integer>();
+                temp.add(list.get(i).get(0));
+            }
+        }
+        if(list.size() > 0){
+            temp = new ArrayList<>();
+            temp.add(list.get(list.size()-1).get(0));
+            res.add(new ArrayList<Integer>(temp));
+        }
+        
+        return res;
+    }
+    public void dfs(TreeNode root, int depth){
+        if(root == null){
+            return ;
+        }
+        List<Integer> temp = new ArrayList<>();
+        temp.add(root.val);
+        temp.add(depth);
+        list.add(new ArrayList<Integer>(temp));
+        dfs(root.left, depth+1);
+        dfs(root.right, depth+1);
+    }
+}
