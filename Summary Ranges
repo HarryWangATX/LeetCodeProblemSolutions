@@ -1,0 +1,25 @@
+class Solution {
+    public List<String> summaryRanges(int[] nums) {
+        if(nums.length == 0) return new ArrayList<>();
+        List<String> res = new ArrayList<>();
+        int prev = nums[0];
+        int start = 0;
+        int end = 0;
+        for(int i = 1; i<nums.length; i++){
+            if(nums[i] != prev+1){
+                end = i-1;
+                if(start == end) res.add(nums[start]+"");
+                else res.add(nums[start] + "->" + nums[end]);
+                prev = nums[i];
+                start = i;
+            }
+            else{
+                prev++;
+            }
+        }
+        end = nums.length-1;
+        if(start >= end) res.add(nums[start]+"");
+        else res.add(nums[start] + "->" + nums[end]);
+        return res;
+    }
+}
