@@ -1,0 +1,31 @@
+class Solution {
+    public int[] prisonAfterNDays(int[] cells, int N) {
+        int afLoop = N%14;
+        if(afLoop == 0) afLoop = 14;
+        for(int i = 0; i<afLoop; i++){
+            List<Integer> change = new ArrayList<>();
+            List<Integer> changeZ = new ArrayList<>();
+            for(int j = 0; j<cells.length; j++){
+                if(enoNeig(cells, j)){
+                    change.add(j);
+                }
+                else {
+                   changeZ.add(j);
+                }
+            }
+            for(int j = 0; j<change.size(); j++){
+                cells[change.get(j)] = 1;
+            }
+            for(int j = 0; j<changeZ.size(); j++){
+                cells[changeZ.get(j)] = 0;
+            }
+        }
+        return cells;
+    }
+    public boolean enoNeig(int[] cells, int pos){
+        if(pos == 0 || pos == 7){
+            return false;
+        }
+        return (cells[pos-1] == 0 && cells[pos+1] == 0) || (cells[pos-1] == 1 && cells[pos+1] == 1);
+    }
+}
