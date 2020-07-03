@@ -3,7 +3,7 @@ Answers for the leetcode problems
 
 Solutions MAY vary with offical LeetCode Solutions.
 
-PLEASE do a pull request for more elegant solutions.
+PLEASE do a pull request for more elegant solutions(New Issue Request Template, make sure to read it!).
 
 
 Tips for beginners:
