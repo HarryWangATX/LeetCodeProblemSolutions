@@ -1,0 +1,17 @@
+class Solution {
+    List<List<Integer>> res = new ArrayList<>();
+    public List<List<Integer>> subsets(int[] nums) {
+        add(nums, new ArrayList<>(), 0);
+        return res;
+    }
+    public void add(int[] nums, List<Integer> store, int index){
+        if(index == nums.length){
+            res.add(new ArrayList<>(store));
+            return ;
+        }
+        store.add(nums[index]);
+        add(nums, store, index+1);
+        store.remove(store.size()-1);
+        add(nums, store, index+1);
+    }
+}
