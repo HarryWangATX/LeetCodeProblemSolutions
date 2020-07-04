@@ -1,0 +1,11 @@
+class Solution {
+    public boolean isUgly(int num) {
+        int[] base = {2, 3, 5};
+        for(int i = 0; i<base.length; i++){
+            while(num >= base[i] && num % base[i] == 0){
+                num /= base[i];
+            }
+        }
+        return num == 1;
+    }
+}
