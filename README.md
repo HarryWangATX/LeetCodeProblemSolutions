@@ -14,5 +14,7 @@ Tips for beginners:
 5. I recommend at least some Algebra II knowledge for math problems
 6. Good Luck!!
 
+I also provide video explanations on my YouTube Channel. Feel free to check it out and subscribe.
+The link can be found here: https://www.youtube.com/channel/UCXMWyG1D_a_b2HRLlBPkGMw?view_as=subscriber
 
 
