@@ -1,0 +1,39 @@
+class Solution {
+    public int numSubmat(int[][] mat) {
+        int rows = mat.length;
+        int coloumns = mat[0].length;
+
+        int[] sides = new int[coloumns]; 
+        int count = 0;
+        for(int i = 0; i < rows; i++){
+            for(int j = 0; j < coloumns; j++) {
+                if(mat[i][j] == 1) sides[j] += 1; 
+                else sides[j] = 0;
+            }
+            count += helper(sides); 
+            //System.out.println(count);
+        }
+        return count;
+    }
+    public int helper(int[] sides){
+        Deque<int[]> stack = new ArrayDeque<int[]>();
+        int count = 0;
+        int totalSum = 0;
+        //System.out.println(Arrays.toString(sides));
+        for(int i = 0; i < sides.length; i++) {
+            int recs = 0;
+            while(!stack.isEmpty() && sides[i] < stack.peek()[0]){
+                int[] rectangles = stack.pop();
+                recs += rectangles[1] + 1;
+                totalSum -= (rectangles[0] - sides[i])*(rectangles[1]+1);
+            }
+
+            totalSum += sides[i];
+            count += totalSum;
+
+            stack.offerFirst(new int[] {sides[i],recs});
+        }
+       
+       return count;
+    }
+}
