@@ -1,0 +1,82 @@
+/**
+ * // This is MountainArray's API interface.
+ * // You should not implement it, or speculate about its implementation
+ * interface MountainArray {
+ *     public int get(int index) {}
+ *     public int length() {}
+ * }
+ */
+ 
+class Solution {
+    public int findInMountainArray(int target, MountainArray mountainArr) {
+        int m = findPivot(mountainArr);
+        //System.out.println(m + "asfdsdf");
+        int left = binarySearch(0, m, mountainArr, target);
+        //System.out.println();
+        if(left != -1) return left;
+        else if(m != mountainArr.length()-1) return binarySearchR(m, mountainArr.length(), mountainArr, target);
+        return -1;
+    }
+    public int findPivot(MountainArray arr){
+        int l = 0;
+        int r = arr.length();
+        while(l < r){
+            int mid = (l+r)/2;
+            int cur = arr.get(mid);
+            int prev = mid!=0 ? arr.get(mid-1) : -1;
+            int next = mid!=arr.length()-1 ? arr.get(mid+1) : 1000000001;
+            if(prev < cur && next < cur){
+                return mid;
+            }
+            else if(prev < cur && cur < next){
+                l = mid + 1;
+            }
+            else{
+                r = mid;
+            }
+        }
+        return -1;
+    }
+    public int binarySearch(int l, int r, MountainArray mount, int target){
+        //System.out.println(l + " " + r);
+        while(l <= r){
+            int mid = (l+r)/2;
+            if(l >= mount.length() || r < 0) {
+                //System.out.println(l + " " + r);
+                break;
+            }
+            //System.out.println(mid);
+            if(mount.get(mid) == target){
+                return mid;
+            }
+            else if(mount.get(mid) < target){
+                l = mid+1;
+            }
+            else{
+                r = mid-1;
+            }
+        }
+        return -1;
+    }
+    public int binarySearchR(int l, int r, MountainArray mount, int target){
+        //System.out.println(l + " " + r);
+        while(l <= r){
+            int mid = (l+r)/2;
+            if(l >= mount.length() || r < 0) {
+                //System.out.println(l + " " + r);
+                break;
+            }
+            //System.out.println(mid);
+            if(mount.get(mid) == target){
+                return mid;
+            }
+            else if(mount.get(mid) < target){
+                r = mid - 1;
+            }
+            else{
+                l = mid + 1;
+            }
+        }
+        return -1;
+    }
+}
