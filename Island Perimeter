@@ -2,8 +2,6 @@ class Solution {
     int perimeter = 0;
     public int islandPerimeter(int[][] grid) {
         int[][] big = new int[grid.length+2][grid[0].length+2];
-        int start = 0;
-        int start2 = 0;
         for(int i = 0; i<grid.length; i++){
             for(int j = 0; j<grid[0].length; j++){
                 big[i+1][j+1] = grid[i][j];
@@ -17,7 +15,7 @@ class Solution {
         //     System.out.println();
         // }
         
-        findPeri(start, start2, big);
+        findPeri(0, 0, big);
         return perimeter;
     }
     public void findPeri(int i, int j, int[][] grid){
