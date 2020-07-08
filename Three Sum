@@ -1,0 +1,48 @@
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return new ArrayList<>();
+        }
+        
+        final Set<List<Integer>> nonDup = new HashSet<>();
+        Arrays.sort(nums);
+        for (int i  =  0; i < nums.length; i++) {
+            nonDup.addAll(tripletFind(nums, i));
+        }
+        
+        return new ArrayList<>(nonDup);
+    }
+    public Set<List<Integer>> tripletFind(int []nums, int curIndx) {
+        int i = 0, j = nums.length - 1;
+        int curNum = nums[curIndx];
+        // a = -(b+c)
+        int expectedVal = -curNum;
+        final Set<List<Integer>> op = new HashSet<>();
+        while (i < j) {
+            if (i == curIndx) {
+                i++;
+                continue;
+            } else if (j == curIndx) {
+                j--;
+                continue;
+            }
+            int curSum = nums[i] + nums[j];
+            if (curSum < expectedVal) {
+                i++;
+            } else if (curSum > expectedVal) {
+                j--;
+            } else {
+                final List<Integer> thisOp = new ArrayList<>();
+                thisOp.add(curNum);    
+                thisOp.add(nums[i]);
+                thisOp.add(nums[j]);
+                Collections.sort(thisOp);
+                op.add(thisOp);
+                i++;
+                j--;
+            }
+        }
+        
+        return op;
+    }
+}
