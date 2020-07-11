@@ -1,0 +1,59 @@
+class Solution {
+    public String reformatDate(String date) {
+        String[] dates = date.split(" ");
+        String res = dates[2];
+        switch(dates[1]){
+            case "Jan":
+                res+="-01";
+                break;
+            case "Feb":
+                res+="-02";
+                break;
+            case "Mar":
+                res+="-03";
+                break;
+            case "Apr":
+                res+="-04";
+                break;
+            case "May":
+                res+="-05";
+                break;
+            case "Jun":
+                res+="-06";
+                break;
+            case "Jul":
+                res+="-07";
+                break;
+            case "Aug":
+                res+="-08";
+                break;
+            case "Sep":
+                res+="-09";
+                break;
+            case "Oct":
+                res+="-10";
+                break;
+            case "Nov":
+                res+="-11";
+                break;
+            default:
+                res+="-12";
+                break;
+                
+        }
+        String temp = "";
+        for(int i = 0; i<dates[0].length(); i++){
+            if(Character.isLetter(dates[0].charAt(i))){
+                break;
+            }
+            temp+=dates[0].charAt(i) + "";
+        }
+        if(temp.length() == 2){
+            res += "-" + temp;
+        }
+        else{
+            res += "-0"+temp;
+        }
+        return res;
+    }
+}
