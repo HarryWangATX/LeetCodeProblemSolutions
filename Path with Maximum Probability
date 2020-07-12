@@ -1,0 +1,84 @@
+class Pair{
+    public int next;
+    public double np;
+    public Pair(int ne, double a){
+        next = ne;
+        np = a;
+    }
+}
+
+class Solution {
+    double max = 0.0;
+    public double maxProbability(int n, int[][] edges, double[] succProb, int start, int end) {
+        List<Pair>[] adj = new List[n];
+        for(int i = 0; i<n; i++){
+            adj[i] = new ArrayList<>();
+        }
+        for(int i = 0; i<edges.length; i++){
+            int st = edges[i][0];
+            int to = edges[i][1];
+            adj[st].add(new Pair(to, succProb[i]));
+            adj[to].add(new Pair(st, succProb[i]));
+        }
+        Queue<Integer> q = new LinkedList<>();
+        q.add(start);
+        double[] prob = new double[n];
+        boolean[] vistA = new boolean[n];
+        vistA[start] = true;
+        Arrays.fill(prob, 1.0);
+        while(!q.isEmpty()){
+            int s = q.size();
+            for(int i = 0; i<s; i++){
+                int cur = q.poll();
+                for(int j = 0; j<adj[cur].size(); j++){
+                    int k = adj[cur].get(j).next;
+                    double np = adj[cur].get(j).np;
+                    if(vistA[k] && k != end){
+                        if(prob[k] < prob[cur] * np){
+                            q.add(k);
+                            prob[k] = prob[cur] * np;
+                        }
+                    }
+                    if(k != end && vistA[k] == false){
+                        prob[k] = prob[cur] * np;
+                        vistA[k] = true;
+                        q.add(k);
+                    }
+                    if(k == end){
+                        prob[k] = prob[cur] * np;
+                        max = Math.max(max, prob[k]);
+                        prob[k] = max;
+                    }
+                    //System.out.print(k + " ");
+                }                
+                //System.out.println();
+            }
+        }
+        //dfs(adj, start, end, 1.0, succProb, new HashSet<>());
+        if(max == Double.MIN_VALUE) return 0;
+        return max;
+    }
+    // public void dfs(List<Pair>[] adj, int cur, int end, double prob, double[] probA, Set<Integer> memo){
+    //     if(prob < max) return ;
+    //     if(cur == end){
+    //         max = Math.max(prob, max);
+    //         return ;
+    //     }
+    //     if(cur >= adj.length){
+    //         //System.out.println("hello");
+    //         return ;
+    //     }
+    //     for(int j = 0; j<adj[cur].size(); j++){
+    //         if(adj[cur].get(j).vist) {
+    //             continue;
+    //         }
+    //         double temp = prob;
+    //         prob *= probA[adj[cur].get(j).i];
+    //         adj[cur].get(j).vist = true;
+    //         //System.out.println(cur);
+    //         dfs(adj, adj[cur].get(j).next, end, prob, probA);
+    //         prob = temp;
+    //         adj[cur].get(j).vist = false;
+    //     }
+    // }
+}
