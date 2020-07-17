@@ -1,0 +1,27 @@
+class Solution {
+    public int[] topKFrequent(int[] nums, int k) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for(int i = 0; i<nums.length; i++){
+            map.put(nums[i], map.getOrDefault(nums[i], 0)+1);
+        }
+        int[][] toS = new int[map.size()][2];
+        int count = 0;
+        Iterator hmIterator = map.entrySet().iterator(); 
+        while (hmIterator.hasNext()) { 
+            Map.Entry mapElement = (Map.Entry)hmIterator.next(); 
+            toS[count][0] = (int)mapElement.getKey();
+            toS[count++][1] = (int)mapElement.getValue();
+        } 
+        Arrays.sort(toS, new Comparator<int[]>(){
+            public int compare(int[] o1, int[] o2){
+                return o1[1] - o2[1];
+            }
+        });
+        int[] res = new int[k];
+        int ix = 0;
+        for(int i = toS.length-1; i>=toS.length-k; i--){
+            res[ix++] = toS[i][0];
+        }
+        return res;
+    }
+}
