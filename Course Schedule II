@@ -1,0 +1,55 @@
+class Solution {
+  int[] res;
+	int resIdx = 0;
+	boolean[] visited;
+	List<List<Integer>> adjacencyList;
+	public int[] findOrder(int numCourses, int[][] prerequisites) {
+		res = new int[numCourses];
+		visited = new boolean[numCourses];
+		adjacencyList = createAdjacencyList(numCourses, prerequisites);
+		Stack<Integer> visitesInDfs = new Stack<>();
+		for (int i = 0; i < numCourses; i++) {
+			if (!dfs(i, visitesInDfs)) {
+				int[] tmpRes = {};
+				return tmpRes;
+			}
+		}
+		return res;
+	}
+
+
+	public boolean dfs(int currCourseNum, Stack<Integer> visitesInDfs) {
+		if (visitesInDfs.contains(currCourseNum)) {
+			return false;
+		}
+		if (visited[currCourseNum]) {
+			return true;
+		}
+		visited[currCourseNum] = true;
+		visitesInDfs.add(currCourseNum);
+		List<Integer> currCourseWithPreq = adjacencyList.get(currCourseNum);
+		for (int preq : currCourseWithPreq) {
+			if (!dfs(preq, visitesInDfs)) {
+				return false;
+			}
+		}
+		res[resIdx++] = currCourseNum;
+		visitesInDfs.pop();
+		return true;
+	}
+
+	public List<List<Integer>> createAdjacencyList(int numCourses, int[][] prerequisites) {
+		List<List<Integer>> adjacencyList = new ArrayList<>();
+		for (int i = 0; i < numCourses; i++) {
+			adjacencyList.add(new ArrayList<>());
+		}
+
+		for (int[] coursePreqArr : prerequisites) {
+			List<Integer> coursePreqList = adjacencyList.get(coursePreqArr[0]);
+			for (int i = 1; i < coursePreqArr.length; i++) {
+				coursePreqList.add(coursePreqArr[i]);
+			}
+		}
+		return adjacencyList;
+	}
+}
