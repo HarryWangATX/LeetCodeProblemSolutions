@@ -1,0 +1,12 @@
+class Solution {
+    public int minFlips(String target1) {
+        int changes = 0;
+        String target = "0" + target1;
+        for(int i = 1; i < target.length(); i++){
+            if(target.charAt(i) != target.charAt(i-1)){
+                changes++;
+            }
+        }
+        return changes;
+    }
+}
