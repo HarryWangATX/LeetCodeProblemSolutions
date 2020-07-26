@@ -1,0 +1,23 @@
+class Solution {
+    public int numSplits(String s) {
+        Map<Character, Integer> dist = new HashMap<>();
+        Map<Character, Integer> dist2 = new HashMap<>();
+        int total = 0;
+        for(int i = 0; i<s.length(); i++){
+            dist2.put(s.charAt(i), dist2.getOrDefault(s.charAt(i), 0)+1);
+        }
+        for(int i = 0; i<s.length(); i++){
+            dist.put(s.charAt(i), dist.getOrDefault(s.charAt(i), 0)+1);
+            if(dist2.containsKey(s.charAt(i))){
+                dist2.put(s.charAt(i), dist2.getOrDefault(s.charAt(i), 0)-1);
+                if(dist2.get(s.charAt(i)) == 0){
+                    dist2.remove(s.charAt(i));
+                }
+            }
+            if(dist.size() == dist2.size()){
+                total += 1;
+            }
+        }
+        return total;
+    }
+}
