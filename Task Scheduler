@@ -1,0 +1,19 @@
+class Solution {
+    public int leastInterval(char[] tasks, int n) {
+        int[] arr = new int[26];
+        int maxFreq = -1;
+        int num = 0;
+        int total = tasks.length;
+
+        for(char a : tasks){
+            arr[a - 'A']++;
+            maxFreq = Math.max(maxFreq, arr[a-'A']);
+        }
+        for(int freq : arr){
+            if(freq == maxFreq){
+                num++;
+            }
+        }
+        return (Math.max(num,(total - (maxFreq-1)*(n+1))) + (maxFreq-1)*(n+1)); 
+    }
+}
