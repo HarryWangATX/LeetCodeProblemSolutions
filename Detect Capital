@@ -1,0 +1,24 @@
+class Solution {
+    public boolean detectCapitalUse(String word) {
+        boolean hasCap = false;
+        boolean noCap = false;
+        for(int i = 1; i<word.length(); i++){
+            if(word.charAt(i) >= 'A' && word.charAt(i) <= 'Z'){
+                hasCap = true;
+            }
+            else{
+                noCap = true;
+            }
+            if(hasCap && noCap){
+                return false;
+            }
+        }
+        if(hasCap){
+            if(word.charAt(0) >= 'A' && word.charAt(0) <= 'Z'){
+                return true;
+            }
+            return false;
+        }
+        return true;
+    }
+}
