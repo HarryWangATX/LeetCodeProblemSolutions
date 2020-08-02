@@ -1,0 +1,32 @@
+class Solution {
+    public int getWinner(int[] arr, int k) {
+        Map<Integer, Integer> dp = new LinkedHashMap<>();
+        for(int i = 1; i<arr.length; i++){
+            if(arr[0] < arr[i]){
+                int temp = arr[0];
+                arr[0] = arr[i];
+                arr[i] = temp;
+            }
+            dp.put(arr[0], dp.getOrDefault(arr[0], 0)+1);
+        }
+        Iterator hmIterator = dp.entrySet().iterator(); 
+
+  
+        while (hmIterator.hasNext()) { 
+            Map.Entry mapElement = (Map.Entry)hmIterator.next(); 
+            //System.out.println((int)mapElement.getValue() + " " + (int)mapElement.getKey());
+            int marks = ((int)mapElement.getValue());
+            if(marks >= k){
+                return (int)mapElement.getKey();
+            }
+        } 
+        return findMax(arr);
+    }
+    public int findMax(int[] arr){
+        int max = Integer.MIN_VALUE;
+        for(int i = 0; i<arr.length; i++){
+            max = Math.max(arr[i], max);
+        }
+        return max;
+    }
+}
