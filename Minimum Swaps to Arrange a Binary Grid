@@ -1,0 +1,40 @@
+class Solution {
+    public int minSwaps(int[][] grid) {
+        int n = grid.length;
+        int count1 = 0;
+        int ix = 0;
+        int[] num = new int[n];
+        for(int[] row : grid){
+            int count = 0;
+            for(int i = n-1; i>=0; i--){
+                if(row[i] == 0){
+                    count++;
+                }
+                else{
+                    break;
+                }
+            }
+            num[ix++] = count;
+        }
+        //System.out.println(Arrays.toString(num));
+        for(int i = 0; i<n; i++){
+            int req = n - i - 1;
+            for(int j = i; j<n; j++){
+                if(num[j] >= req){
+                    for(int k = j; k > i; k--){
+                        int temp = num[k];
+                        num[k] = num[k-1];
+                        num[k-1] = temp;
+                        count1++;
+                    }
+                    break;
+                }
+                
+                if(j == n - 1){
+                    return -1;
+                }
+            }
+        }
+        return count1;
+    }
+}
