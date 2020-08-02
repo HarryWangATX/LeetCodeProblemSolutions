@@ -1,27 +1,33 @@
 class MyHashSet {
 
     /** Initialize your data structure here. */
-    private List<Integer> hashSet;
+    boolean[] arr = new boolean[100];
     public MyHashSet() {
-        hashSet = new ArrayList<>();
+        
     }
     
     public void add(int key) {
-        if(!hashSet.contains(key)){
-            hashSet.add(key);
+        if(key >= arr.length){
+            lengthen(key);
         }
+        arr[key] = true;
     }
     
     public void remove(int key) {
-        hashSet.remove((Integer) key);
+        if(key < arr.length){
+            arr[key] = false;
+        }
     }
     
     /** Returns true if this set contains the specified element */
     public boolean contains(int key) {
-        if(hashSet.contains(key)){
-            return true;
+        if(key < arr.length){
+            return arr[key];
         }
         return false;
+    }
+    public void lengthen(int len){
+        arr = Arrays.copyOf(arr, len+2);
     }
 }
 
