@@ -1,0 +1,57 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public boolean isSymmetric(TreeNode root) {
+        if(root == null) return true;
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(root);
+        while(!q.isEmpty()){
+            int s = q.size();
+            List<Integer> lvl = new ArrayList<>();
+            for(int i = 0; i<s; i++){
+                TreeNode cur = q.poll();
+                if(cur.left != null){
+                    lvl.add(cur.left.val);
+                    q.add(cur.left);
+                }
+                else{
+                    lvl.add(-1234231);
+                }
+                if(cur.right != null){
+                    lvl.add(cur.right.val);
+                    q.add(cur.right);
+                }
+                else{
+                    lvl.add(-1234231);
+                }
+            }
+            //System.out.println(lvl);
+            if(!isPal(lvl)){
+                return false;
+            }
+        }
+        return true;
+    }
+    public boolean isPal(List<Integer> lvl){
+        for(int i = 0; i<lvl.size()/2; i++){
+            if(!lvl.get(i).equals(lvl.get(lvl.size()-i-1))){
+                //System.out.println(lvl.get(i) + " " + lvl.get(lvl.size()-i-1));
+                return false;
+            }
+        }
+        return true;
+    }
+}
