@@ -1,0 +1,61 @@
+class Trie{
+    Trie[] letters;
+    boolean end;
+    Trie(){
+        letters = new Trie[26];
+        end = false;
+    }
+}
+
+class WordDictionary {
+
+    /** Initialize your data structure here. */
+    Trie t = new Trie();
+    public WordDictionary() {
+        
+    }
+    
+    /** Adds a word into the data structure. */
+    public void addWord(String word) {
+        Trie p = t;
+        for(char chr : word.toCharArray()){
+            if(p.letters[chr - 'a'] == null)
+                p.letters[chr - 'a'] = new Trie();
+            
+            p = p.letters[chr - 'a'];
+        }
+        
+        p.end = true; 
+    }
+    
+    public boolean search(Trie p, String word, int index){
+        if(index >= word.length()) return p.end;
+        char c = word.charAt(index);
+
+        if(c == '.'){
+            for(Trie t : p.letters){
+                if(t != null && search(t, word, index + 1))
+                    return true;
+            }
+            return false;
+        }
+        
+        if(p == null || p.letters[c - 'a'] == null){
+            return false;
+        } 
+        
+        return search(p.letters[c - 'a'], word, index + 1);
+    }
+    
+    /** Returns if the word is in the data structure. A word could contain the dot character '.' to represent any one letter. */
+    public boolean search(String word) {
+        return search(t, word, 0);
+    }
+}
+
+/**
+ * Your WordDictionary object will be instantiated and called as such:
+ * WordDictionary obj = new WordDictionary();
+ * obj.addWord(word);
+ * boolean param_2 = obj.search(word);
+ */
