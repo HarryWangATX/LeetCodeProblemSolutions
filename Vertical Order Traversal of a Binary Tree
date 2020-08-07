@@ -1,0 +1,60 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    List<int[]> nodes = new ArrayList<>();
+    public List<List<Integer>> verticalTraversal(TreeNode root) {
+        helper(root, 0, 0);
+        int[][] n = new int[nodes.size()][3];
+        int ix = 0;
+        for(int[] a : nodes){
+            n[ix++] = a;
+        }
+        Arrays.sort(n, new Comparator<int[]>(){
+            public int compare(int[] o1, int[] o2){
+                if(o1[2] == o2[2]){
+                    if(o1[1] == o2[1]){
+                        return o1[0] - o2[0];
+                    }
+                    return o1[1] - o2[1]; 
+                }
+                return o1[2] - o2[2];
+            }
+        });
+        //System.out.println(Arrays.deepToString(n));
+        List<List<Integer>> res = new ArrayList<>();
+        List<Integer> temp = new ArrayList<>();
+        temp.add(n[0][0]);
+        int prev = n[0][2];
+        for(int i = 1; i<n.length; i++){
+            if(prev != n[i][2]){
+                res.add(temp);
+                temp = new ArrayList<>();
+            }
+            temp.add(n[i][0]);
+            prev = n[i][2];
+        }
+        res.add(temp);
+        return res;
+    }
+    public void helper(TreeNode root, int pos, int depth){
+        if(root == null){
+            return ;
+        }
+        nodes.add(new int[] {root.val, depth, pos});
+        helper(root.left, pos - 1, depth+1);
+        helper(root.right, pos + 1, depth+1);
+    }
+}
