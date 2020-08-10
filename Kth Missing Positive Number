@@ -1,0 +1,23 @@
+class Solution {
+    public int findKthPositive(int[] arr, int k) {
+        int count = 1;
+        int mis = 0;
+        int ix = 0;
+        while(true){
+            if(ix >= arr.length){
+                //System.out.println(count);
+                return count + (k-mis) - 1;
+            }
+            if(count != arr[ix]){
+                mis++;
+            }
+            else{
+                ix++;
+            }
+            if(mis == k){
+                return  count;
+            }
+            count++;
+        }
+    }
+}
