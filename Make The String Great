@@ -1,0 +1,19 @@
+class Solution {
+    public String makeGood(String s) {
+        String res = "";
+        for(int i = 0; i<=s.length()-2; i++){
+            char f = s.charAt(i);
+            char f2 = s.charAt(i+1);
+            if(Character.toLowerCase(f) == Character.toLowerCase(f2)){
+                //System.out.println(s.charAt(i) + " " + s.charAt(i+1));
+                if((s.charAt(i) >= 'a' && s.charAt(i) <= 'z' && s.charAt(i+1) >= 'A' && s.charAt(i+1) <= 'Z') || (s.charAt(i+1) >= 'a' && s.charAt(i+1) <= 'z' && s.charAt(i) >= 'A' && s.charAt(i) <= 'Z')){
+                    s = s.substring(0, i) + s.substring(i+2, s.length());
+                    i=-1;
+                    //System.out.println(i);
+                }
+            }
+        }
+
+        return s;
+    }
+}
