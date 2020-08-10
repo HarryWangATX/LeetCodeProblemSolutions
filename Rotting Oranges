@@ -1,0 +1,60 @@
+class Pair{
+    public int i;
+    public int j;
+    public Pair(int a, int b){
+        i = a;
+        j = b;
+    }
+}
+
+class Solution {
+    int[] dx = {0, 0, -1, 1};
+    int[] dy = {-1, 1, 0, 0};
+    Set<String> coor = new HashSet<>();
+    public int orangesRotting(int[][] grid) {
+        List<Pair> start = new ArrayList<>();
+        for(int i = 0; i<grid.length; i++){
+            for(int j = 0; j<grid[0].length; j++){
+                if(grid[i][j] == 2){
+                    start.add(new Pair(i, j));
+                }
+                if(grid[i][j] == 1){
+                    coor.add(i + " " + j);
+                }
+            }
+        }
+        if(coor.size() == 0) return 0;
+        int res = bfs(grid, start);
+        if(coor.size() == 0){
+            return res-1;
+        }
+        return -1;
+    }
+    public int bfs(int[][] grid, List<Pair> start){
+        int count = 0;
+        Queue<Pair> q = new LinkedList<>();
+        for(Pair a : start){
+            q.add(a);
+        }
+        while(!q.isEmpty()){
+            int s = q.size();
+            for(int i = 0; i<s; i++){
+                Pair cur = q.poll();
+                grid[cur.i][cur.j] = 2;
+                for(int j = 0; j<4; j++){
+                    int newi = cur.i + dx[j];
+                    int newj = cur.j + dy[j];
+                    if(newi >= 0 && newi < grid.length && newj >= 0 && newj < grid[0].length){
+                        if(coor.contains(newi + " " + newj)){
+                            Pair temp = new Pair(newi, newj);
+                            coor.remove(newi + " " + newj);
+                            q.add(temp);
+                        }
+                    }
+                }
+            }
+            count++;
+        }
+        return count;
+    }
+}
