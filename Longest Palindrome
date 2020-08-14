@@ -1,0 +1,24 @@
+class Solution {
+    public int longestPalindrome(String s) {
+        int[] chars = new int[56];
+        for(int i = 0; i<s.length(); i++){
+            if(s.charAt(i) < 'a'){
+                
+                chars[(s.charAt(i)-'A') + 26]++;
+            }
+            else{
+                chars[s.charAt(i)-'a']++;
+            }
+        }
+        int sum = 0;
+        int odd = 0;
+        for(int i = 0; i<chars.length; i++){
+            sum += chars[i];
+            if(chars[i] % 2 != 0){
+                odd++;
+            }
+        }
+        if(odd == 0) return sum;
+        return sum - odd + 1;
+    }
+}
