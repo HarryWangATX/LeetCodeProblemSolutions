@@ -1,0 +1,31 @@
+class CombinationIterator {
+    Queue<String> q = new LinkedList<>();
+    public CombinationIterator(String characters, int combinationLength) {
+        combos(characters, "",0 ,combinationLength);
+    }
+
+    public void combos(String chars, String build, int s, int ix) {
+        if (ix == 0) {
+            q.add(build);
+            return;
+        }
+        for(int i = s; i < chars.length(); i++) {
+            combos(chars,build + chars.charAt(i), i + 1, ix - 1);
+        }
+    }
+    
+    public String next() {
+        return q.poll();
+    }
+    
+    public boolean hasNext() {
+        return !q.isEmpty();
+    }
+}
+
+/**
+ * Your CombinationIterator object will be instantiated and called as such:
+ * CombinationIterator obj = new CombinationIterator(characters, combinationLength);
+ * String param_1 = obj.next();
+ * boolean param_2 = obj.hasNext();
+ */
