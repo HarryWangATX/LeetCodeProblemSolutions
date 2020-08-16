@@ -1,0 +1,65 @@
+class Solution {
+    List<int[]> list = new ArrayList<>();
+    int n = 0;
+    public int maxDistance(int[] position, int m) {
+        Arrays.sort(position);
+        int start = position[0];
+        int end = position[0];
+        int count = 0;
+        n = m;
+        for(int i = 1; i<position.length; i++){
+            if(position[i] != end+1){
+                list.add(new int[] {start, end});
+                start = position[i];
+                end = position[i];
+                count++;
+            }
+            else{
+                end = position[i];
+            }
+        }
+        list.add(new int[]{start, end});
+        
+        // for(int[] a : list){
+        //     System.out.println(Arrays.toString(a));
+        // }
+        Collections.sort(list, new Comparator<int[]>(){
+            public int compare(int[] a, int[] b){
+                return a[0] - b[0];
+            }
+        });
+        
+        long lo = 1;
+        long hi = (long) 2000000000 * 2000000000;
+        long res = -1;
+
+        while (lo <= hi) {
+            long mid = (lo + hi) / 2;
+
+            if (ok(mid)) {
+                res = mid;
+                lo = mid + 1;
+            }
+            else {
+                hi = mid - 1;
+            }
+        }
+        return (int)res;
+    }
+    
+    public boolean ok(long d) {
+        long prev = (long) -1 * 2000000000 * 2000000000;
+
+        int cnt = 0;
+        for (int[] i : list) {
+            while (Math.max(prev + d, i[0]) <= i[1]) {
+                prev = Math.max(prev + d, i[0]);
+                cnt++;
+                if (cnt >= n) break;
+            }
+            if (cnt >= n) break;
+        }
+
+        return (cnt >= n);
+    }
+}
