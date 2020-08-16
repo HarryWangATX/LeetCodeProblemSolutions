@@ -1,0 +1,20 @@
+class Solution {
+    Map<Integer, Integer> memo = new HashMap<>();
+    public int minDays(int n) {
+        return F(n);
+    }
+    public int F(int n){
+        if(n <= 1){
+            return 1;
+        }
+        
+        if(memo.containsKey(n)){
+            return memo.get(n);
+        }
+        
+        int ans = Math.min(1 + F(n/2) + (n%2), 1 + F(n/3) + (n%3));
+        memo.put(n, ans);
+    
+        return ans;
+    }
+}
