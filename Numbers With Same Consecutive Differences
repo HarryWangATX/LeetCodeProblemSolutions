@@ -1,0 +1,28 @@
+class Solution {
+    List<String> list = new ArrayList<>();
+    public int[] numsSameConsecDiff(int N, int K) {
+        if(N == 1) return new int[]{0,1,2,3,4,5,6,7,8,9};
+        for(int i = 1; i<10; i++){
+            addString(i+"", N, K, 1);
+        }
+        int[] res = new int[list.size()];
+        for(int i = 0; i<list.size(); i++){
+            res[i] = Integer.parseInt(list.get(i));
+        }
+        return res;
+    }
+    public void addString(String a, int N, int K, int ix){
+        if(a.length() == N){
+            list.add(a);
+            return ;
+        }
+        for(int i = 0; i<10; i++){
+            int prev = Integer.parseInt(a.substring(ix-1, ix));
+            if(Math.abs(prev - i) == K){
+                a += i+"";
+                addString(a, N, K, ix+1);
+                a = a.substring(0, a.length()-1);
+            }
+        }
+    }
+}
