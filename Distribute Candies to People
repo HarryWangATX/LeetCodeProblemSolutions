@@ -1,0 +1,18 @@
+class Solution {
+    public int[] distributeCandies(int candies, int num_people) {
+        int[] res = new int[num_people];
+        int count = 1;
+        int ix = 0;
+        while(candies > 0){
+            ix %= num_people;
+            if(count > candies){
+                count = candies;
+            }
+            res[ix++] += count;
+            
+            candies -= count;
+            count++;
+        }
+        return res;
+    }
+}
