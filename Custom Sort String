@@ -1,0 +1,26 @@
+class Solution {
+    public String customSortString(String S, String T) {
+        String res = "";
+        int[] a = new int[26];
+        for(int i = 0; i<T.length(); i++){
+            a[T.charAt(i) - 'a']++;
+        }
+        
+        for(int i = 0; i<S.length(); i++){
+            char b = S.charAt(i);
+            if(a[b-'a']>0){
+                for(int j = 0; j < a[b-'a']; j++){
+                    res += b+"";
+                }
+                a[b-'a'] = 0;
+            }
+        }
+        for(int i = 0; i<26; i++){
+            int left = a[i];
+            for(int j = 0; j<left; j++){
+                res += (char)(i+'a');
+            }
+        }
+        return res;
+    }
+}
