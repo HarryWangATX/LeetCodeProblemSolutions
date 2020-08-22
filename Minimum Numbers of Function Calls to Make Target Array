@@ -1,0 +1,28 @@
+class Solution {
+    public int minOperations(int[] nums) {
+        int count = 0;
+        while(getZ(nums) > 0){
+            for(int i = 0; i<nums.length; i++){
+                if(nums[i] % 2 != 0){
+                    nums[i]--;
+                    count++;
+                }
+            }
+            for(int i = 0; i<nums.length; i++){
+                nums[i]/=2;
+            }
+            count++;
+        }
+        if(count == 0) return 0;
+        return count-1;
+    }
+    public int getZ(int[] arr){
+        int count = 0;
+        for(int a : arr){
+            if(a != 0){
+                count++;
+            }
+        }
+        return count;
+    }
+}
