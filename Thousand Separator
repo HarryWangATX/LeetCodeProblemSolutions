@@ -1,0 +1,16 @@
+class Solution {
+    public String thousandSeparator(int n) {
+        String a = n +"";
+        List<Integer> ixs = new ArrayList<>();
+        for(int i = 0; i < a.length(); i++){
+            if((i) % 3 == 0 && i != 0){
+                ixs.add(a.length()-i-1);
+            }
+        }
+        //System.out.println(ixs);
+        for(int i = 0; i<ixs.size(); i++){
+            a = a.substring(0, ixs.get(i)+1) + "." + a.substring(ixs.get(i)+1, a.length());
+        }
+        return a;
+    }
+}
