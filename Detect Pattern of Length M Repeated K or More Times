@@ -1,0 +1,50 @@
+class Solution {
+    public boolean containsPattern(int[] arr, int m, int k) {
+        Map<String, Integer> patterns = new HashMap<>();
+        for(int i = 0; i<=arr.length-m; i++){
+            String temp = "";
+            int count = 1;
+            int j;
+            for(j = i; j<i+m; j++){
+                temp += arr[j]+"";
+            }
+            //System.out.println(temp);
+            
+            
+            for(j = j; j<arr.length; j+=m){
+                //System.out.println(i + " " +j);
+                String temp2 = "";
+                for(int z = j; z < Math.min(j+m, arr.length); z++){
+                    temp2 += arr[z]+"";
+                }
+                if(temp2.equals(temp)){
+                    //System.out.println(temp + " " + count);
+                    count++;
+                }
+                else{
+                    break;
+                }
+                //System.out.println(temp2);
+            }
+            if(count >= k) return true;
+            
+//             for(int j = i+m; j<arr.length; j+=m){
+//                 String temp2 = "";
+                
+//                 for(int z = j; z<j+m; z++){
+//                     temp2 += arr[z]+"";
+//                 }
+//                 System.out.println(temp2);
+//                 if(temp2.equals(temp)){
+//                     count++;
+//                 }
+//                 else{
+//                     //System.out.println(temp + " " + count);
+//                     if(count >= k) return true;
+//                     break;
+//                 }
+//             }
+        }
+        return false;
+    }
+}
