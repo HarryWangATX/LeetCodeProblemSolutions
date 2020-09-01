@@ -1,0 +1,38 @@
+class Solution {
+    int max = Integer.MIN_VALUE;
+    public String largestTimeFromDigits(int[] A) {
+        dfs(A, 0, 0, new int[4]);
+        if(max == Integer.MIN_VALUE) return "";
+        String word = max + "";
+        while(word.length() < 4){
+            word = "0" + word;
+            if(word.length() == 4) break;
+        }
+        return word.substring(0, 2) + ":" + word.substring(2);
+    }
+    public void dfs(int[] A, int store, int ix, int[] used){
+        if(ix == A.length){
+            if(store >= 2400){
+                return;
+            }
+            String word = store + "";
+            while(word.length() < 4){
+                word = "0" + word;
+                if(word.length() == 4) break;
+            }
+            if(word.charAt(2) >= '6') return;
+            max = Math.max(max, store);
+            return;
+        }
+        for(int i = 0; i<A.length; i++){
+            if(used[i] == 1) continue;
+            store *= 10;
+            store += A[i];
+            used[i] = 1;
+            dfs(A, store, ix+1, used);
+            store -= A[i];
+            store /= 10;
+            used[i] = 0;
+        }
+    }
+}
