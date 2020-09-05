@@ -1,0 +1,17 @@
+class Solution {
+    public int diagonalSum(int[][] mat) {
+        int toMinus = 0;
+        if(mat.length % 2 == 1){
+            toMinus = mat[mat.length/2][mat.length/2];
+        }
+        int left = 0;
+        int right = mat.length-1;
+        int sum = 0;
+        for(int i = 0; i<mat.length; i++){
+            sum += mat[i][left++];
+            sum += mat[i][right--];
+        }
+        //System.out.println(toMinus);
+        return sum - toMinus;
+    }
+}
