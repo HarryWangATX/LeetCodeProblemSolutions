@@ -1,0 +1,86 @@
+class Solution {
+    public int numWays(String s) {
+        int count1 = 0;
+        for(int i = 0; i<s.length(); i++){
+            if(s.charAt(i) == '1'){
+                count1++;
+            }
+        }
+        if(count1 % 3 != 0){
+            return 0;
+        }
+        
+        
+        if(count1 == 0){
+            int num0 = s.length()-2;
+            long res = 0;
+            while(num0 > 0){
+                res += num0--;
+            }
+            return (int)(res%1000000007);
+        }
+        
+        
+        int need = count1/3;
+        int has = 0;
+        int cur = 0;
+        List<Integer> len = new ArrayList<>();
+        boolean zero = false;
+        long res = 0;
+        for(int i = 0; i<s.length(); i++){
+            if(s.charAt(i) == '1'){
+                has++;
+            }
+            if(has == need){
+                cur = i+1;
+                has = 0;
+                break;
+            }
+        }
+        
+        
+        for(int i = cur; i<s.length(); i++){
+            if(s.charAt(i) == '1'){
+                cur = i;
+                len.add(has);
+                has = 0;
+                break;
+            }
+            if(s.charAt(i) == '0'){
+                has++;
+            }
+        }
+        
+        
+        
+        
+        for(int i = cur; i<s.length(); i++){
+            if(s.charAt(i) == '1'){
+                has++;
+            }
+            if(has == need){
+                cur = i+1;
+                has = 0;
+                break;
+            }
+        }
+        
+        
+        for(int i = cur; i<s.length(); i++){
+            if(s.charAt(i) == '1'){
+                cur = i;
+                len.add(has);
+                has = 0;
+                break;
+            }
+            if(s.charAt(i) == '0'){
+                has++;
+            }
+        }
+        
+        System.out.println(len);
+        
+        res = (long)(len.get(0)+1) * (len.get(1)+1);
+        return (int)(res%1000000007);
+    }
+}
