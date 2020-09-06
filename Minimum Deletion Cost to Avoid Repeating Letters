@@ -1,0 +1,32 @@
+class Solution {
+    public int minCost(String s, int[] cost) {
+        if(s.length() == 1) return 0;
+        int left = 0;
+        int right = 1;
+        int total = 0;
+        int toAdd = 0;
+
+        int c = 0;
+        int b = 0;
+        while(left < s.length() && right < s.length()){
+            if(s.charAt(left) == s.charAt(right)){
+                if(c == 0){
+                    c = cost[left];
+                    b = c;
+                }
+                c = Math.min(c, cost[right]);
+                b = Math.max(b, cost[right]);
+                right++;
+                total += c;
+                c = b;
+                continue;
+            }
+            c = 0;
+            left = right;
+            right++;
+            
+        }
+
+        return total;
+    }
+}
