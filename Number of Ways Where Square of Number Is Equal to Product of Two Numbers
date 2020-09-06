@@ -1,0 +1,45 @@
+class Solution {
+    public int numTriplets(int[] nums1, int[] nums2) {
+        int count = 0;
+        Map<Long, Integer> products = new HashMap<>();
+        Map<Long, Integer> products2 = new HashMap<>();
+        
+        
+        
+        
+        
+        for(int i = 0; i<nums2.length; i++){
+            for(int j = i + 1; j<nums2.length; j++){
+                products.put((long)(nums2[i]) * nums2[j], products.getOrDefault((long)(nums2[i]) * nums2[j], 0)+1);
+            }
+        }
+        
+        for(int i = 0; i<nums1.length; i++){
+            for(int j = i + 1; j<nums1.length; j++){
+                products2.put((long)(nums1[i]) * nums1[j], products2.getOrDefault((long)(nums1[i]) * nums1[j], 0)+1);
+            }
+        }
+        
+        
+        for(int i = 0; i<nums1.length; i++){
+            long squared = (long)(nums1[i]) * nums1[i];
+            if(products.containsKey(squared)){
+                //System.out.println(squared + " " + products.get(squared));
+                count += products.get(squared);
+            }
+            
+        }
+        
+        for(int i = 0; i<nums2.length; i++){
+            long squared = (long)(nums2[i]) * nums2[i];
+            if(products2.containsKey(squared)){
+                //System.out.println(squared + " " + products2.get(squared));
+                count += products2.get(squared);
+            }
+        }
+        
+        
+        return count;
+        
+    }
+}
