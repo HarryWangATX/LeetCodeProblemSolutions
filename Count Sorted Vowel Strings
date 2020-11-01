@@ -1,0 +1,20 @@
+class Solution {
+    String[] vowels = {"a", "e", "i", "o", "u"};
+    int sum = 0;
+    public int countVowelStrings(int n) {
+        dfs(n, 0, 0);
+        return sum;
+    }
+    public void dfs(int n, int len, int ix){
+        if(len == n){
+            sum++;
+            return;
+        }
+        for(int i = ix; i<vowels.length; i++){
+            len++;
+            dfs(n, len, ix++);
+            len--;
+        }
+        return;
+    }
+}
