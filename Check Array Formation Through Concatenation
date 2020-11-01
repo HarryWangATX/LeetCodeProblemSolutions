@@ -1,0 +1,34 @@
+class Solution {
+    public boolean canFormArray(int[] arr, int[][] pieces) {
+        String res = "";
+        for(int i : arr){
+            res += i + " ";
+        }
+        
+        String[] other = new String[pieces.length];
+        
+        for(int i = 0; i<pieces.length; i++){
+            String temp = "";
+            for(int j = 0; j<pieces[i].length; j++){
+                temp += pieces[i][j] +" ";
+            }
+            other[i] = temp;
+        }
+        
+        while(res.length() > 0){
+            boolean found = false;
+            
+            for(int i = 0; i<other.length; i++){
+                if(res.indexOf(other[i]) == 0){
+                    res = res.substring(other[i].length());
+                    found = true;
+                    break;
+                }
+            }
+            
+            if(!found) return false;
+        }
+        return true;
+        
+    }
+}
