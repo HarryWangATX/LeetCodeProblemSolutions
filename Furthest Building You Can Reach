@@ -1,0 +1,41 @@
+class Solution {
+    int[] h;
+    int[] memo;
+    public int furthestBuilding(int[] heights, int bricks, int ladders) {
+        h = heights;
+        if(h.length == 1) return 1;
+        memo = new int[heights.length];
+        return dp(1, bricks, ladders) - 1;
+    }
+    public int dp(int i, int b, int l){
+        
+        if(l < 0 || b < 0){
+            return 0;
+        }
+
+        if(i == h.length){
+            return i;
+        }
+        
+        if(b == 0 && l == 0 && h[i-1] < h[i]){
+            return i;
+        }
+        
+        if(memo[i] != 0){
+            return memo[i];
+        }
+        
+        
+        int answer = 0;
+        
+        
+        if(h[i-1] > h[i]){
+            answer = dp(i+1, b, l);
+        }
+        else{
+            answer = Math.max(dp(i+1, b-(h[i] - h[i-1]), l), dp(i+1, b, l-1));
+        }
+        memo[i] = answer;
+        return answer;
+    }
+}
