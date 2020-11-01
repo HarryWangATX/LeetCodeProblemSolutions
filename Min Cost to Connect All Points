@@ -1,0 +1,91 @@
+class Node implements Comparable{
+    int n;
+    int w;
+    public Node(int no, int wi){
+        n = no;
+        w = wi;
+    }
+    
+    public String toString(){
+        return n + " "  + w;
+    }
+    
+    public int compareTo(Object o){
+        return w - ((Node)o).w;
+    }
+}
+
+class Solution {
+    public int minCostConnectPoints(int[][] points) {
+        long time = System.currentTimeMillis();
+        List<Node>[] adjList = new List[points.length];
+        boolean[] vist = new boolean[points.length];
+        int[] mst = new int[points.length];
+        
+        Arrays.fill(mst, Integer.MAX_VALUE);
+        
+        for(int i = 0; i < points.length; i++){
+            adjList[i] = new ArrayList<>();
+        }
+        
+        for(int i = 0; i < points.length; i++){
+            for(int j = 0; j < points.length; j++){
+                int f = i;
+                int t = j;
+                if(i == j) continue;
+                
+                int weight = Math.abs(points[i][0] - points[j][0]) + Math.abs(points[i][1] - points[j][1]);
+                
+                adjList[i].add(new Node(t, weight));
+                
+            }
+        }
+        
+        PriorityQueue<Node> q = new PriorityQueue<>();
+        q.add(new Node(0, 0));
+        mst[0] = 0;
+        //vist[0] = true;
+        while(!q.isEmpty()){
+            int s = q.size();
+            for(int i = 0; i<s; i++){
+                //System.out.println(q);
+                
+                Node cur = q.poll();
+                
+                int n = cur.n;
+                
+                if(vist[n]) continue;
+                
+                
+                vist[n] = true;
+                
+                
+                for(int j = 0; j<adjList[n].size(); j++){
+                    int t = adjList[n].get(j).n;
+                    int w = adjList[n].get(j).w;
+                    
+                    if(vist[t]) continue;
+                    
+                    if(w < mst[t]){
+                        mst[t] = w;
+                        q.add(new Node(t, w));
+                    }
+                    
+                    
+                }
+                
+            }
+            //System.out.println();
+        }
+        
+        
+//         System.out.println(Arrays.toString(mst));
+        
+//         int sum = 0;
+//         for(int w : mst){
+//             sum += w;
+//         }
+        
+        return Arrays.stream(mst).sum();
+    }
+}
