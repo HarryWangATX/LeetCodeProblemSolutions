@@ -1,3 +1,6 @@
+import java.util.*;
+
+
 class Solution {
     List<List<String>> res = new ArrayList<>();
     public List<List<String>> solveNQueens(int n) {
@@ -23,7 +26,7 @@ class Solution {
                 diagonal2.remove(j-i);
                 vertical.remove(j);
             }
-            
+
         }
     }
     public void addToList(int[][] board){
@@ -38,8 +41,15 @@ class Solution {
                     temp+="Q";
                 }
             }
-            list.add(temp); 
+            list.add(temp);
         }
         res.add(list);
+    }
+}
+
+public class NQueens {
+    public static void main(String[] args) {
+        Solution solution = new Solution();
+        System.out.println(solution.solveNQueens(8));
     }
 }
